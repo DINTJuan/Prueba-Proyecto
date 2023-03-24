@@ -443,5 +443,64 @@ namespace Prueba_Proyecto.Servicios
         {
 
         }
+
+        public void GenerarPDFProducto(Producto producto)
+        {
+            // Crear un nuevo documento PDF
+            Document documento = new Document();
+            // Definir la ruta y el nombre del archivo PDF a crear
+            string rutaCarpeta = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/PdfProductos";
+            string nombreArchivo = producto.Nombre + "_" + producto.Marca + "_" + DateTime.Now.ToString("dd_MM_yyyy") + ".pdf";
+            string rutaArchivo = rutaCarpeta + "/" + nombreArchivo;
+
+            // Si la carpeta no existe, crearla
+            if (!Directory.Exists(rutaCarpeta))
+            {
+                Directory.CreateDirectory(rutaCarpeta);
+            }
+            // Crea un documento PDF con tamaño A4 y margen de 36 unidades
+            Document document = new Document(PageSize.A4, 36, 36, 36, 36);
+
+            // Crea un objeto PdfWriter para escribir en el documento
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(rutaArchivo, FileMode.Create));
+
+            // Abre el documento para escribir en él
+            document.Open();
+
+            // Crea una tabla para la imagen y los datos del producto
+            PdfPTable table = new PdfPTable(2);
+            table.WidthPercentage = 100;
+
+            // Añade la imagen del producto a la tabla
+            Image imagen = Image.GetInstance(producto.Foto);
+            imagen.ScaleAbsolute(150f, 150f);
+            PdfPCell imagenCell = new PdfPCell(imagen, true);
+            imagenCell.Border = Rectangle.NO_BORDER;
+            imagenCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            table.AddCell(imagenCell);
+
+            // Añade los datos del producto a la tabla
+            PdfPCell datosCell = new PdfPCell();
+            datosCell.Border = Rectangle.NO_BORDER;
+            datosCell.HorizontalAlignment = Element.ALIGN_LEFT;
+            datosCell.PaddingLeft = 10f;
+            datosCell.PaddingRight = 10f;
+
+            datosCell.AddElement(new Paragraph(producto.Nombre, FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18)));
+            datosCell.AddElement(new Paragraph(producto.Marca, FontFactory.GetFont(FontFactory.HELVETICA, 12)));
+            datosCell.AddElement(new Paragraph(producto.Descripcion, FontFactory.GetFont(FontFactory.HELVETICA, 12)));
+            datosCell.AddElement(new Paragraph($"Precio: {producto.Precio:C}", FontFactory.GetFont(FontFactory.HELVETICA, 12)));
+            datosCell.AddElement(new Paragraph($"Tipo de alcohol: {producto.TipoAlcohol}", FontFactory.GetFont(FontFactory.HELVETICA, 12)));
+            datosCell.AddElement(new Paragraph($"Graduación: {producto.Graduacion}%", FontFactory.GetFont(FontFactory.HELVETICA, 12)));
+
+            table.AddCell(datosCell);
+
+            // Añade la tabla al documento
+            document.Add(table);
+
+            // Cierra el documento y libera los recursos utilizados
+            document.Close();
+            writer.Close();
+        }
     }
 }

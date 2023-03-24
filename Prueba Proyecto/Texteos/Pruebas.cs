@@ -71,5 +71,47 @@ namespace Prueba_Proyecto.Texteos
 
             PdfServicio pdf = new PdfServicio();
             pdf.GenerarPDFClientes(clientes);*/
+
+        /*ObservableCollection<CompaniaEnvio> companias = new ObservableCollection<CompaniaEnvio>()
+            {
+                new CompaniaEnvio()
+                {
+                    IdCompañiaEnvios = 1,
+                    Nombre = "DHL",
+                    Telefono = "123456789",
+                    Foto = "foto1.png"
+                },
+                new CompaniaEnvio()
+                {
+                    IdCompañiaEnvios = 2,
+                    Nombre = "FedEx",
+                    Telefono = "987654321",
+                    Foto = "foto2.png"
+                },
+                new CompaniaEnvio()
+                {
+                    IdCompañiaEnvios = 3,
+                    Nombre = "UPS",
+                    Telefono = "555555555",
+                    Foto = "foto3.png"
+                },
+                new CompaniaEnvio()
+                {
+                    IdCompañiaEnvios = 4,
+                    Nombre = "TNT",
+                    Telefono = "111111111",
+                    Foto = "foto4.png"
+                },
+                new CompaniaEnvio()
+                {
+                    IdCompañiaEnvios = 5,
+                    Nombre = "Correos",
+                    Telefono = "222222222",
+                    Foto = "foto5.png"
+                }
+            };
+
+            PdfServicio pdf = new PdfServicio();
+            pdf.GenerarPDFCompañias(companias);*/
     }
 }
