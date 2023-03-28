@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:clases="clr-namespace:Prueba_Proyecto.Clases"
         xmlns:local="clr-namespace:Prueba_Proyecto"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Icon="Imagenes\icono.ico">
@@ -69,6 +70,34 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <DataTemplate DataType="{x:Type clases:Producto}">
+            <Border BorderThickness="1" BorderBrush="Black" Background="AliceBlue" Height="300" Width="300" Margin="10">
+                <UIElement.Effect>
+                    <DropShadowEffect/>
+                </UIElement.Effect>
+                <StackPanel>
+                    <Viewbox Height="60">
+                        <TextBlock Text="{Binding Path=Marca}"/>
+                    </Viewbox>
+                    <Image Margin="5" Width="200" Height="150" Stretch="UniformToFill" Source="{Binding Path=Foto}"/>
+                    <Grid Margin="0,0,5,0">
+                        <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontSize="20" Grid.Column="0" Text="{Binding Path=Nombre}" TextAlignment="Left"/>
+                        <TextBlock FontSize="16" Grid.Column="1" Text="{Binding Path=Graduacion}" TextAlignment="Right" HorizontalAlignment="Right">
+                            <Run Text=" %"></Run>
+                        </TextBlock>
+                    </Grid>
+                    <TextBlock Text="{Binding Path=Descripcion}"/>
+                    <TextBlock FontSize="30" Text="{Binding Path=Precio}" TextAlignment="Right">
+                        <Run Text=" €"></Run>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -82,43 +111,41 @@
             <Button x:Name="ClientesButton" Content="Clientes" Click="ClientesButton_Click" Style="{StaticResource BotonLateral}"/>
             <Button x:Name="ComTranporteButton" Content="Compañías de transporte" Click="ComTranporteButton_Click" Style="{StaticResource BotonLateral}"/>
             <Button x:Name="EmpledosButton" Content="Empleados" Click="EmpledosButton_Click" Style="{StaticResource BotonLateral}"/>
+            <Button x:Name="ProductosButton" Content="Productos" Click="ProductosButton_Click" Style="{StaticResource BotonLateral}"/>
         </StackPanel>
         <TabControl x:Name="VentanaTabControl" Grid.Column="1" TabStripPlacement="Left">
             <TabItem Header="Inicio" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
-                <TabItem.InputBindings>
-                    <KeyBinding Key="I" Modifiers="Control" Command="{Binding SelectInicioCommand}" />
-                </TabItem.InputBindings>
                 <TextBlock Text="Contenido de Inicio"/>
             </TabItem>
             <TabItem Header="Pedidos" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
-                <TabItem.InputBindings>
-                    <KeyBinding Key="P" Modifiers="Control" Command="{Binding SelectPedidosCommand}" />
-                </TabItem.InputBindings>
                 <TextBlock Text="Contenido de Pedidos"/>
             </TabItem>
             <TabItem Header="Facturas" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
-                <TabItem.InputBindings>
-                    <KeyBinding Key="F" Modifiers="Control" Command="{Binding SelectFacturasCommand}" />
-                </TabItem.InputBindings>
                 <TextBlock Text="Contenido de Facturas"/>
             </TabItem>
             <TabItem Header="Clientes" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
-                <TabItem.InputBindings>
-                    <KeyBinding Key="C" Modifiers="Control" Command="{Binding SelectClientesCommand}" />
-                </TabItem.InputBindings>
                 <TextBlock Text="Contenido de Clientes"/>
             </TabItem>
             <TabItem Header="Compañías de transporte" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
-                <TabItem.InputBindings>
-                    <KeyBinding Key="T" Modifiers="Control" Command="{Binding SelectTransporteCommand}" />
-                </TabItem.InputBindings>
                 <TextBlock Text="Contenido de Compañías de transporte"/>
             </TabItem>
             <TabItem Header="Empleados" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
-                <TabItem.InputBindings>
-                    <KeyBinding Key="E" Modifiers="Control" Command="{Binding SelectEmpleadosCommand}" />
-                </TabItem.InputBindings>
                 <TextBlock Text="Contenido de Empleados"/>
+            </TabItem>
+            <TabItem Header="Productos" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="300"/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox x:Name="PlaListBox" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding Path=ListaProductos}" SelectedItem="{Binding Path=ProductoSelecionado}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ListBox>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>

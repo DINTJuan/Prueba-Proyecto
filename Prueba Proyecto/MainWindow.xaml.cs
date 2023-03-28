@@ -31,10 +31,6 @@ namespace Prueba_Proyecto
             InitializeComponent();
             vm = new MainWindowVM();
             this.DataContext = vm;
-            vm.VentanaTabControl = VentanaTabControl;
-
-            
-
         }
 
         private void EmpledosButton_Click(object sender, RoutedEventArgs e)
@@ -70,6 +66,11 @@ namespace Prueba_Proyecto
         private void InicioButton_Click(object sender, RoutedEventArgs e)
         {
             VentanaTabControl.SelectedIndex = 0;
+        }
+
+        private void ProductosButton_Click(object sender, RoutedEventArgs e)
+        {
+            VentanaTabControl.SelectedIndex = 6;
         }
     }
 }
