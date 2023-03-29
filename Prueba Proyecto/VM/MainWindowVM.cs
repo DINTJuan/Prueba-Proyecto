@@ -15,29 +15,22 @@ using Prueba_Proyecto.Servicios;
 
 namespace Prueba_Proyecto.VM
 {
-    internal class MainWindowVM : INotifyPropertyChanged
+    internal class MainWindowVM : ObservableObject
     {
         private ObservableCollection<Producto> listaProductos;
         private Producto productoSelecionado;
 
+        
         public ObservableCollection<Producto> ListaProductos
         {
             get { return listaProductos; }
-            set
-            {
-                listaProductos = value;
-                this.NotifyPropertyChanged("ListaProductos");
-            }
+            set { SetProperty(ref listaProductos, value); }
         }
 
         public Producto ProductoSelecionado
         {
             get { return productoSelecionado; }
-            set
-            {
-                productoSelecionado = value;
-                this.NotifyPropertyChanged("ProductoSelecionado");
-            }
+            set { SetProperty(ref productoSelecionado, value); }
         }
 
         public MainWindowVM()
