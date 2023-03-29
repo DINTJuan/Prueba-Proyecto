@@ -71,14 +71,6 @@
             </Setter>
         </Style>
         
-        <Style x:Key="seleccion" TargetType="{x:Type StackPanel}">
-            <Setter Property="IsEnabled" Value="true"/>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=PlatoSelecionado}" Value="{x:Null}">
-                    <Setter Property="IsEnabled" Value="false"/>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
 
         <DataTemplate DataType="{x:Type clases:Producto}">
             <Border BorderThickness="1" BorderBrush="Black" Background="AliceBlue" Height="300" Width="300" Margin="10">
@@ -155,7 +147,7 @@
                         </ItemsControl.ItemsPanel>
                     </ListBox>
                     <Border Grid.Column="1" Background="Gainsboro" Margin="15" Padding="10">
-                        <StackPanel Style="{StaticResource seleccion}">
+                        <StackPanel>
                             <TextBlock>Nombre</TextBlock>
                             <TextBox Text="{Binding ProductoSelecionado.Nombre}"/>
                             <TextBlock>Marca</TextBlock>
@@ -170,7 +162,9 @@
                             <TextBox Text="{Binding ProductoSelecionado.Graduacion}"/>
                             <TextBlock>Foto</TextBlock>
                             <TextBox Text="{Binding ProductoSelecionado.Foto}"/>
+                            <Button Click="LimpiarSecButton_Click" x:Name="LimpiarSecButton" Margin="10" Background="DarkGray" Width="120" HorizontalAlignment="Left" Template="{DynamicResource ButtonControlTemplateBorde}">Limpiar selección</Button>
                         </StackPanel>
+                        
                     </Border>
                 </Grid>
             </TabItem>

@@ -72,5 +72,10 @@ namespace Prueba_Proyecto
         {
             VentanaTabControl.SelectedIndex = 6;
         }
+
+        private void LimpiarSecButton_Click(object sender, RoutedEventArgs e)
+        {
+            vm.QuitarProducto();
+        }
     }
 }

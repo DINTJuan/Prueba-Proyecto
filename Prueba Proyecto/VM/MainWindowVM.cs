@@ -56,6 +56,11 @@ namespace Prueba_Proyecto.VM
             this.ListaProductos = productos;
         }
 
+        public void QuitarProducto()
+        {
+            ProductoSelecionado = null;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(string propertyName)
         {
