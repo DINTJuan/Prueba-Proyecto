@@ -70,6 +70,15 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        <Style x:Key="seleccion" TargetType="{x:Type StackPanel}">
+            <Setter Property="IsEnabled" Value="true"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=PlatoSelecionado}" Value="{x:Null}">
+                    <Setter Property="IsEnabled" Value="false"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
 
         <DataTemplate DataType="{x:Type clases:Producto}">
             <Border BorderThickness="1" BorderBrush="Black" Background="AliceBlue" Height="300" Width="300" Margin="10">
@@ -145,6 +154,24 @@
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ListBox>
+                    <Border Grid.Column="1" Background="Gainsboro" Margin="15" Padding="10">
+                        <StackPanel Style="{StaticResource seleccion}">
+                            <TextBlock>Nombre</TextBlock>
+                            <TextBox Text="{Binding ProductoSelecionado.Nombre}"/>
+                            <TextBlock>Marca</TextBlock>
+                            <TextBox Text="{Binding ProductoSelecionado.Marca}"/>
+                            <TextBlock>Descripcion</TextBlock>
+                            <TextBox Text="{Binding ProductoSelecionado.Descripcion}"/>
+                            <TextBlock>Precio</TextBlock>
+                            <TextBox Text="{Binding ProductoSelecionado.Precio}"/>
+                            <TextBlock>Precio</TextBlock>
+                            <TextBox Text="{Binding ProductoSelecionado.TipoAlcohol}"/>
+                            <TextBlock>Graduacion</TextBlock>
+                            <TextBox Text="{Binding ProductoSelecionado.Graduacion}"/>
+                            <TextBlock>Foto</TextBlock>
+                            <TextBox Text="{Binding ProductoSelecionado.Foto}"/>
+                        </StackPanel>
+                    </Border>
                 </Grid>
             </TabItem>
         </TabControl>
