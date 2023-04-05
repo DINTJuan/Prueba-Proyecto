@@ -19,6 +19,7 @@ namespace Prueba_Proyecto.VM
     {
         private ObservableCollection<Producto> listaProductos;
         private Producto productoSelecionado;
+        private PdfServicio pdfServicio = new PdfServicio();
 
         
         public ObservableCollection<Producto> ListaProductos
@@ -59,6 +60,16 @@ namespace Prueba_Proyecto.VM
         public void QuitarProducto()
         {
             ProductoSelecionado = null;
+        }
+
+        public void ImprimirProducto()
+        {
+            pdfServicio.GenerarPDFProducto(productoSelecionado);
+        }
+
+        public void ImprimirProductos()
+        {
+            pdfServicio.GenerarPDFProductos(ListaProductos);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

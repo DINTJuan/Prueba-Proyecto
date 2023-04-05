@@ -77,5 +77,15 @@ namespace Prueba_Proyecto
         {
             vm.QuitarProducto();
         }
+
+        private void PDFButton_Click(object sender, RoutedEventArgs e)
+        {
+            vm.ImprimirProducto();
+        }
+
+        private void ListaButton_Click(object sender, RoutedEventArgs e)
+        {
+            vm.ImprimirProductos();
+        }
     }
 }
