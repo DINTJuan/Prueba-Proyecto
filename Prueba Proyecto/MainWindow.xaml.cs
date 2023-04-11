@@ -36,11 +36,6 @@ namespace Prueba_Proyecto
         private void EmpledosButton_Click(object sender, RoutedEventArgs e)
         {
             VentanaTabControl.SelectedIndex = 5;
-            ServicioDocumentos sImagenes = new ServicioDocumentos();
-            PdfServicio pdf = new PdfServicio();
-            Producto producto1 = new Producto(1, "Jack Daniel's", "Whiskey", 35.99m, "Whiskey de Tennesse", "Whiskey", 40f, "arbol.jpg");
-            producto1.Foto = sImagenes.SubirImagen(producto1.Foto);
-            pdf.GenerarPDFProducto(producto1);
         }
 
         private void ComTranporteButton_Click(object sender, RoutedEventArgs e)
@@ -86,6 +81,26 @@ namespace Prueba_Proyecto
         private void ListaButton_Click(object sender, RoutedEventArgs e)
         {
             vm.ImprimirProductos();
+        }
+
+        private void ListaButtonE_Click(object sender, RoutedEventArgs e)
+        {
+            vm.ImprimirEmpleados();
+        }
+
+        private void LimpiarSecButtonE_Click(object sender, RoutedEventArgs e)
+        {
+            vm.QuitarEmpleado();
+        }
+
+        private void ListaButtonC_Click(object sender, RoutedEventArgs e)
+        {
+            vm.ImprimirCompanias();
+        }
+
+        private void LimpiarSecButtonC_Click(object sender, RoutedEventArgs e)
+        {
+            vm.QuitarCompania();
         }
     }
 }

@@ -26,10 +26,10 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FF444444"/>
+                                <Setter Property="Background" Value="#f8485e"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#FF222222"/>
+                                <Setter Property="Background" Value="#4a161c"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -71,7 +71,9 @@
             </Setter>
         </Style>
 
-        <Style x:Key="seleccion" TargetType="{x:Type StackPanel}">
+        <!--Estilos para Productos -->
+
+        <Style x:Key="seleccionP" TargetType="{x:Type StackPanel}">
             <Setter Property="IsEnabled" Value="true"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=ProductoSelecionado}" Value="{x:Null}">
@@ -107,6 +109,78 @@
                 </StackPanel>
             </Border>
         </DataTemplate>
+        
+        <!--Estilos para Empleados -->
+        
+        <Style x:Key="seleccionE" TargetType="{x:Type StackPanel}">
+            <Setter Property="IsEnabled" Value="true"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=EmpleadoSelecionado}" Value="{x:Null}">
+                    <Setter Property="IsEnabled" Value="false"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <DataTemplate DataType="{x:Type clases:Empleado}">
+            <Border BorderThickness="1" BorderBrush="Black" Background="AliceBlue" Height="300" Width="300" Margin="10">
+                <UIElement.Effect>
+                    <DropShadowEffect/>
+                </UIElement.Effect>
+                <StackPanel>
+                    <Viewbox Height="60">
+                        <TextBlock Text="{Binding Path=Nombre}">
+                            <Run Text=""></Run>
+                            <Run Text="{Binding Path=Apellidos}"></Run>
+                        </TextBlock>
+                    </Viewbox>
+                    <Image Margin="5" Width="200" Height="150" Stretch="Uniform" Source="{Binding Path=Foto}"/>
+                    <Grid Margin="0,0,5,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontSize="20" Grid.Column="0" Text="{Binding Path=Puesto}" TextAlignment="Left"/>
+                        <TextBlock FontSize="16" Grid.Column="1" Text="{Binding Path=Sueldo}" TextAlignment="Right" HorizontalAlignment="Right">
+                            <Run Text=" €"></Run>
+                        </TextBlock>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+
+        <!--Estilos para Compañias -->
+
+        <Style x:Key="seleccionC" TargetType="{x:Type StackPanel}">
+            <Setter Property="IsEnabled" Value="true"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=CompaniaSelecionado}" Value="{x:Null}">
+                    <Setter Property="IsEnabled" Value="false"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <DataTemplate DataType="{x:Type clases:CompaniaEnvio}">
+            <Border BorderThickness="1" BorderBrush="Black" Background="AliceBlue" Height="300" Width="300" Margin="10">
+                <UIElement.Effect>
+                    <DropShadowEffect/>
+                </UIElement.Effect>
+                <StackPanel>
+                    <Viewbox Height="60">
+                        <TextBlock Text="{Binding Path=Nombre}"></TextBlock>
+                    </Viewbox>
+                    <Image Margin="5" Width="200" Height="150" Stretch="Uniform" Source="{Binding Path=Foto}"/>
+                    <Grid Margin="0,0,5,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontSize="20" Grid.Column="0" Text="{Binding Path=Telefono}" TextAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+
+
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -124,7 +198,11 @@
         </StackPanel>
         <TabControl x:Name="VentanaTabControl" Grid.Column="1" TabStripPlacement="Left">
             <TabItem Header="Inicio" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
-                <TextBlock Text="Contenido de Inicio"/>
+                <Grid>
+                    <Grid.Background>
+                        <ImageBrush ImageSource="Imagenes\logoInicio.png" Stretch="UniformToFill"></ImageBrush>
+                    </Grid.Background>
+                </Grid>
             </TabItem>
             <TabItem Header="Pedidos" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
                 <TextBlock Text="Contenido de Pedidos"/>
@@ -136,10 +214,72 @@
                 <TextBlock Text="Contenido de Clientes"/>
             </TabItem>
             <TabItem Header="Compañías de transporte" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
-                <TextBlock Text="Contenido de Compañías de transporte"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="300"/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox x:Name="ClaListBox" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding Path=ListaCompanias}" SelectedItem="{Binding Path=CompaniaSelecionado}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ListBox>
+                    <Border Grid.Column="1" Background="Gainsboro" Margin="15" Padding="10">
+                        <StackPanel Style="{StaticResource seleccionC}">
+                            <TextBlock>Nombre</TextBlock>
+                            <TextBox Text="{Binding CompaniaSelecionado.Nombre}"/>
+                            <TextBlock>Telefono</TextBlock>
+                            <TextBox Text="{Binding CompaniaSelecionado.Telefono}"/>
+                            <TextBlock>Foto</TextBlock>
+                            <TextBox Text="{Binding CompaniaSelecionado.Foto}"/>
+                            <Button x:Name="LimpiarSecButtonC" Margin="10" Background="DarkGray" Width="120" HorizontalAlignment="Left" Template="{DynamicResource ButtonControlTemplateBorde}" Click="LimpiarSecButtonC_Click">Limpiar selección</Button>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+                                <Button x:Name="ListaButtonC" Content="Generar Lista PDF" Margin="10" Background="DarkGray" Width="100" Template="{DynamicResource ButtonControlTemplateBorde}" Click="ListaButtonC_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                    </Border>
+                </Grid>
             </TabItem>
             <TabItem Header="Empleados" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
-                <TextBlock Text="Contenido de Empleados"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="300"/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox x:Name="ElaListBox" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding Path=ListaEmpleados}" SelectedItem="{Binding Path=EmpleadoSelecionado}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ListBox>
+                    <Border Grid.Column="1" Background="Gainsboro" Margin="15" Padding="10">
+                        <StackPanel Style="{StaticResource seleccionE}">
+                            <TextBlock>Nombre</TextBlock>
+                            <TextBox Text="{Binding EmpleadoSelecionado.Nombre}"/>
+                            <TextBlock>Apellido</TextBlock>
+                            <TextBox Text="{Binding EmpleadoSelecionado.Apellidos}"/>
+                            <TextBlock>Puesto</TextBlock>
+                            <TextBox Text="{Binding EmpleadoSelecionado.Puesto}"/>
+                            <TextBlock>Sueldo</TextBlock>
+                            <TextBox Text="{Binding EmpleadoSelecionado.Sueldo}"/>
+                            <TextBlock>DNI</TextBlock>
+                            <TextBox Text="{Binding EmpleadoSelecionado.Dni}"/>
+                            <TextBlock>Fecha de Contratacion</TextBlock>
+                            <TextBox Text="{Binding EmpleadoSelecionado.FechaContratacion}"/>
+                            <TextBlock>Foto</TextBlock>
+                            <TextBox Text="{Binding EmpleadoSelecionado.Foto}"/>
+                            <Button x:Name="LimpiarSecButtonE" Margin="10" Background="DarkGray" Width="120" HorizontalAlignment="Left" Template="{DynamicResource ButtonControlTemplateBorde}" Click="LimpiarSecButtonE_Click">Limpiar selección</Button>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+                                <Button x:Name="ListaButtonE" Content="Generar Lista PDF" Margin="10" Background="DarkGray" Width="100" Template="{DynamicResource ButtonControlTemplateBorde}" Click="ListaButtonE_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                    </Border>
+                </Grid>
             </TabItem>
             <TabItem Header="Productos" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
                 <Grid>
@@ -155,7 +295,7 @@
                         </ItemsControl.ItemsPanel>
                     </ListBox>
                     <Border Grid.Column="1" Background="Gainsboro" Margin="15" Padding="10">
-                        <StackPanel Style="{StaticResource seleccion}">
+                        <StackPanel Style="{StaticResource seleccionP}">
                             <TextBlock>Nombre</TextBlock>
                             <TextBox Text="{Binding ProductoSelecionado.Nombre}"/>
                             <TextBlock>Marca</TextBlock>
