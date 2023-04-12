@@ -23,6 +23,10 @@ namespace Prueba_Proyecto.VM
         private Empleado empleadoSelecionado;
         private ObservableCollection<CompaniaEnvio> listaCompanias;
         private CompaniaEnvio companiaSelecionado;
+        private ObservableCollection<Pedido> listaPedidos;
+        private Pedido pedidoSelecionado;
+        private ObservableCollection<DetallesPedido> listaDetallesPedidos;
+        private ObservableCollection<DetallesPedido> listaDetallesPedidosBuscados;
 
         private PdfServicio pdfServicio = new PdfServicio();
         
@@ -63,6 +67,29 @@ namespace Prueba_Proyecto.VM
         {
             get { return companiaSelecionado; }
             set { SetProperty(ref companiaSelecionado, value); }
+        }
+
+        public ObservableCollection<Pedido> ListaPedidos
+        {
+            get { return listaPedidos; }
+            set { SetProperty(ref listaPedidos, value); }
+        }
+
+        public Pedido PedidoSelecionado
+        {
+            get { return pedidoSelecionado; }
+            set { SetProperty(ref pedidoSelecionado, value); }
+        }
+        public ObservableCollection<DetallesPedido> ListaDetallesPedidos
+        {
+            get { return listaDetallesPedidos; }
+            set { SetProperty(ref listaDetallesPedidos, value); }
+        }
+
+        public ObservableCollection<DetallesPedido> ListaDetallesPedidosBuscados
+        {
+            get { return listaDetallesPedidosBuscados; }
+            set { SetProperty(ref listaDetallesPedidosBuscados, value); }
         }
 
         public MainWindowVM()
@@ -149,6 +176,40 @@ namespace Prueba_Proyecto.VM
                 compania.Foto = azure.SubirFoto(compania.Foto);
             }
             this.ListaCompanias = companias;
+
+            ObservableCollection<Pedido> pedidos = new ObservableCollection<Pedido>()
+            {
+                new Pedido(1, 1, 1, 1, new DateTime(2022, 1, 1), new DateTime(2022, 1, 8), new DateTime(2022, 1, 2), "Express", "Juan Perez", "Calle 123"),
+                new Pedido(2, 2, 2, 2, new DateTime(2022, 1, 2), new DateTime(2022, 1, 9), new DateTime(2022, 1, 3), "Normal", "Maria Gomez", "Avenida 456"),
+                new Pedido(3, 3, 3, 3, new DateTime(2022, 1, 3), new DateTime(2022, 1, 10), new DateTime(2022, 1, 4), "Express", "Luis Rodriguez", "Plaza 789"),
+                new Pedido(4, 4, 4, 4, new DateTime(2022, 1, 4), new DateTime(2022, 1, 11), new DateTime(2022, 1, 5), "Normal", "Ana Lopez", "Calle 321"),
+                new Pedido(5, 5, 5, 5, new DateTime(2022, 1, 5), new DateTime(2022, 1, 12), new DateTime(2022, 1, 6), "Express", "Jose Martinez", "Avenida 654"),
+                new Pedido(6, 6, 6, 6, new DateTime(2022, 1, 6), new DateTime(2022, 1, 13), new DateTime(2022, 1, 7), "Normal", "Laura Perez", "Plaza 987"),
+                new Pedido(7, 7, 7, 7, new DateTime(2022, 1, 7), new DateTime(2022, 1, 14), new DateTime(2022, 1, 8), "Express", "Carlos Garcia", "Calle 555"),
+            };
+            this.ListaPedidos = pedidos;
+
+            ObservableCollection<DetallesPedido> detallesPedido = new ObservableCollection<DetallesPedido>
+            {
+                new DetallesPedido(1, 1, 10.0m, 2, 5.0m),
+                new DetallesPedido(1, 2, 15.0m, 1, 0.0m),
+                new DetallesPedido(2, 3, 20.0m, 3, 10.0m),
+                new DetallesPedido(2, 1, 10.0m, 2, 0.0m),
+                new DetallesPedido(3, 2, 15.0m, 1, 0.0m)
+            };
+            this.ListaDetallesPedidos = detallesPedido;
+        }
+
+        public void BuscarPorID(string id)
+        {
+            ListaDetallesPedidosBuscados = new ObservableCollection<DetallesPedido>();
+            foreach (DetallesPedido detapedido in ListaDetallesPedidos)
+            {
+                if(detapedido.IdPedido.Equals(int.Parse(id)))
+                {
+                    ListaDetallesPedidosBuscados.Add(detapedido);
+                }
+            }
         }
 
         public void QuitarProducto()

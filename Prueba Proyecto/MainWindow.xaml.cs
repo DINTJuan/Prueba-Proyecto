@@ -102,5 +102,27 @@ namespace Prueba_Proyecto
         {
             vm.QuitarCompania();
         }
+
+        private void Detalles_Click(object sender, RoutedEventArgs e)
+        {
+            VentanaEmergenteId.IsOpen = true;
+        }
+
+        private void CancelarButton_Click(object sender, RoutedEventArgs e)
+        {
+            VentanaEmergenteId.IsOpen = false;
+            IdTextBox.Text = "";
+        }
+
+        private void BuscarButton_Click(object sender, RoutedEventArgs e)
+        {
+            vm.BuscarPorID(IdTextBox.Text);
+            VentanaEmergenteBuscado.IsOpen = true;
+        }
+
+        private void CerrarButton_Click(object sender, RoutedEventArgs e)
+        {
+            VentanaEmergenteBuscado.IsOpen = false;
+        }
     }
 }
