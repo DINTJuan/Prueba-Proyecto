@@ -24,9 +24,9 @@ namespace Prueba_Proyecto.VM
         private ObservableCollection<CompaniaEnvio> listaCompanias;
         private CompaniaEnvio companiaSelecionado;
         private ObservableCollection<Pedido> listaPedidos;
-        private Pedido pedidoSelecionado;
         private ObservableCollection<DetallesPedido> listaDetallesPedidos;
         private ObservableCollection<DetallesPedido> listaDetallesPedidosBuscados;
+        private ObservableCollection<Cliente> listaClientes;
 
         private PdfServicio pdfServicio = new PdfServicio();
         
@@ -75,11 +75,6 @@ namespace Prueba_Proyecto.VM
             set { SetProperty(ref listaPedidos, value); }
         }
 
-        public Pedido PedidoSelecionado
-        {
-            get { return pedidoSelecionado; }
-            set { SetProperty(ref pedidoSelecionado, value); }
-        }
         public ObservableCollection<DetallesPedido> ListaDetallesPedidos
         {
             get { return listaDetallesPedidos; }
@@ -90,6 +85,12 @@ namespace Prueba_Proyecto.VM
         {
             get { return listaDetallesPedidosBuscados; }
             set { SetProperty(ref listaDetallesPedidosBuscados, value); }
+        }
+
+        public ObservableCollection<Cliente> ListaClientes
+        {
+            get { return listaClientes; }
+            set { SetProperty(ref listaClientes, value); }
         }
 
         public MainWindowVM()
@@ -198,6 +199,16 @@ namespace Prueba_Proyecto.VM
                 new DetallesPedido(3, 2, 15.0m, 1, 0.0m)
             };
             this.ListaDetallesPedidos = detallesPedido;
+
+            ObservableCollection<Cliente> clientes = new ObservableCollection<Cliente>()
+            {
+                new Cliente() { IdCliente = 1, Nombre = "Juan", Apellidos = "García", Direcion = "Calle 1", Ciudad = "Madrid", CodigoPostal = "28001" },
+                new Cliente() { IdCliente = 2, Nombre = "María", Apellidos = "Rodríguez", Direcion = "Calle 2", Ciudad = "Barcelona", CodigoPostal = "08001" },
+                new Cliente() { IdCliente = 3, Nombre = "Pedro", Apellidos = "López", Direcion = "Calle 3", Ciudad = "Valencia", CodigoPostal = "46001" },
+                new Cliente() { IdCliente = 4, Nombre = "Ana", Apellidos = "Martínez", Direcion = "Calle 4", Ciudad = "Sevilla", CodigoPostal = "41001" },
+                new Cliente() { IdCliente = 5, Nombre = "Carlos", Apellidos = "González", Direcion = "Calle 5", Ciudad = "Bilbao", CodigoPostal = "48001" }
+            };
+            this.ListaClientes = clientes;
         }
 
         public void BuscarPorID(string id)
@@ -245,6 +256,21 @@ namespace Prueba_Proyecto.VM
         public void ImprimirCompanias()
         {
             pdfServicio.GenerarPDFCompañias(ListaCompanias);
+        }
+
+        public void ImprimirClientes()
+        {
+            pdfServicio.GenerarPDFClientes(ListaClientes);
+        }
+
+        public void ImprimirPedidos()
+        {
+            pdfServicio.GenerarPDFPedidos(ListaPedidos);
+        }
+
+        public void ImprimirDetallesPedidos()
+        {
+            pdfServicio.GenerarPDFDetallesPedido(ListaDetallesPedidos);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

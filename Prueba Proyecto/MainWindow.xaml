@@ -190,7 +190,6 @@
         <StackPanel Grid.Column="0" Background="#FF333333">
             <Button x:Name="InicioButton" Content="Inicio" Click="InicioButton_Click" Style="{StaticResource BotonLateral}"/>
             <Button x:Name="PedidosButton" Content="Pedidos" Click="PedidosButton_Click" Style="{StaticResource BotonLateral}"/>
-            <Button x:Name="FaccturasButton" Content="Facturas" Click="FaccturasButton_Click" Style="{StaticResource BotonLateral}"/>
             <Button x:Name="ClientesButton" Content="Clientes" Click="ClientesButton_Click" Style="{StaticResource BotonLateral}"/>
             <Button x:Name="ComTranporteButton" Content="Compañías de transporte" Click="ComTranporteButton_Click" Style="{StaticResource BotonLateral}"/>
             <Button x:Name="EmpledosButton" Content="Empleados" Click="EmpledosButton_Click" Style="{StaticResource BotonLateral}"/>
@@ -217,23 +216,27 @@
                             <DataGridTextColumn Header="Dirrecion Envio" Binding="{Binding DirrecionEnvio}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button Margin="10" Content="Detalles Pedido" Click="Detalles_Click" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Template="{DynamicResource ButtonControlTemplateBorde}"/>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
+                        <Button Margin="10" Content="Detalles Pedido" Click="Detalles_Click" Width="120" VerticalAlignment="Bottom" Template="{DynamicResource ButtonControlTemplateBorde}"/>
+                        <Button x:Name="PDFPedidosButton" Margin="10" Content="Generar Pedidos" Width="120" VerticalAlignment="Bottom" Template="{DynamicResource ButtonControlTemplateBorde}" Click="PDFPedidosButton_Click"/>
+                        <Button x:Name="PDFDetallesButton" Margin="10" Content="Generar Detalles" Width="120" VerticalAlignment="Bottom" Template="{DynamicResource ButtonControlTemplateBorde}" Click="PDFDetallesButton_Click"/>
+                    </StackPanel>
                     <Popup x:Name="VentanaEmergenteId" Width="200" Height="200" Placement="Center" IsOpen="False">
                         <Border BorderBrush="#4a161c" BorderThickness="2">
-                        <Grid Background="White">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0">
-                                <TextBlock Text="Introduce el ID del pedido"/>
-                                <TextBox x:Name="IdTextBox" />
-                            </StackPanel>
-                            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
-                                <Button x:Name="BuscarButton" Content="Buscar" Margin="0 0 10 0" Click="BuscarButton_Click"/>
-                                <Button x:Name="CancelarButton" Content="Cancelar" Click="CancelarButton_Click"/>
-                            </StackPanel>
-                        </Grid>
+                            <Grid Background="White">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0">
+                                    <TextBlock Text="Introduce el ID del pedido"/>
+                                    <TextBox x:Name="IdTextBox" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
+                                    <Button x:Name="BuscarButton" Content="Buscar" Margin="0 0 10 0" Click="BuscarButton_Click" Template="{DynamicResource ButtonControlTemplateBorde}"/>
+                                    <Button x:Name="CancelarButton" Content="Cancelar" Click="CancelarButton_Click" Template="{DynamicResource ButtonControlTemplateBorde}"/>
+                                </StackPanel>
+                            </Grid>
                         </Border>
                     </Popup>
                     <Popup x:Name="VentanaEmergenteBuscado" Width="450" Height="300" Placement="Center" IsOpen="False">
@@ -254,11 +257,20 @@
                     </Popup>
                 </Grid>
             </TabItem>
-            <TabItem Header="Facturas" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
-                <TextBlock Text="Contenido de Facturas"/>
-            </TabItem>
             <TabItem Header="Clientes" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
-                <TextBlock Text="Contenido de Clientes"/>
+                <Grid>
+                    <DataGrid ItemsSource="{Binding ListaClientes}" AutoGenerateColumns="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding IdCliente}" />
+                            <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" />
+                            <DataGridTextColumn Header="Apellidos" Binding="{Binding Apellidos}" />
+                            <DataGridTextColumn Header="Direccion" Binding="{Binding Direcion}" />
+                            <DataGridTextColumn Header="Codigo Postal" Binding="{Binding CodigoPostal}"/>
+                            <DataGridTextColumn Header="Ciudad" Binding="{Binding Ciudad}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button x:Name="PDFClientesButton" Margin="10" Content="Generar PDF" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Template="{DynamicResource ButtonControlTemplateBorde}" Click="PDFClientesButton_Click"/>
+                </Grid>
             </TabItem>
             <TabItem Header="Compañías de transporte" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
                 <Grid Background="#4a161c">

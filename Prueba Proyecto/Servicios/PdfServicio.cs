@@ -434,16 +434,6 @@ namespace Prueba_Proyecto.Servicios
             documento.Close();
         }
 
-        public void GenerarPDFPedidosCliente(ObservableCollection<Pedido> pedidos, Cliente cliente)
-        {
-
-        }
-
-        public void GenerarPDFPedidosYDetalles(ObservableCollection<Pedido> pedidos, ObservableCollection<DetallesPedido> detallesPedidos)
-        {
-
-        }
-
         public void GenerarPDFProducto(Producto producto)
         {
             // Crear un nuevo documento PDF

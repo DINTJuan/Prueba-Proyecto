@@ -35,20 +35,15 @@ namespace Prueba_Proyecto
 
         private void EmpledosButton_Click(object sender, RoutedEventArgs e)
         {
-            VentanaTabControl.SelectedIndex = 5;
+            VentanaTabControl.SelectedIndex = 4;
         }
 
         private void ComTranporteButton_Click(object sender, RoutedEventArgs e)
         {
-            VentanaTabControl.SelectedIndex = 4;
-        }
-
-        private void ClientesButton_Click(object sender, RoutedEventArgs e)
-        {
             VentanaTabControl.SelectedIndex = 3;
         }
 
-        private void FaccturasButton_Click(object sender, RoutedEventArgs e)
+        private void ClientesButton_Click(object sender, RoutedEventArgs e)
         {
             VentanaTabControl.SelectedIndex = 2;
         }
@@ -65,7 +60,7 @@ namespace Prueba_Proyecto
 
         private void ProductosButton_Click(object sender, RoutedEventArgs e)
         {
-            VentanaTabControl.SelectedIndex = 6;
+            VentanaTabControl.SelectedIndex = 5;
         }
 
         private void LimpiarSecButton_Click(object sender, RoutedEventArgs e)
@@ -123,6 +118,21 @@ namespace Prueba_Proyecto
         private void CerrarButton_Click(object sender, RoutedEventArgs e)
         {
             VentanaEmergenteBuscado.IsOpen = false;
+        }
+
+        private void PDFClientesButton_Click(object sender, RoutedEventArgs e)
+        {
+            vm.ImprimirClientes();
+        }
+
+        private void PDFDetallesButton_Click(object sender, RoutedEventArgs e)
+        {
+            vm.ImprimirDetallesPedidos();
+        }
+
+        private void PDFPedidosButton_Click(object sender, RoutedEventArgs e)
+        {
+            vm.ImprimirPedidos();
         }
     }
 }
