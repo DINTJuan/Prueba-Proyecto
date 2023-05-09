@@ -96,7 +96,9 @@ namespace Prueba_Proyecto.VM
         public MainWindowVM()
         {
             AzureServicio azure = new AzureServicio();
-            ObservableCollection < Producto > productos = new ObservableCollection<Producto>
+            BaseDatosServicio bd = new BaseDatosServicio();
+
+            /*ObservableCollection < Producto > productos = new ObservableCollection<Producto>
             {
                 new Producto(1, "Jack Daniel's", "Whiskey", 35.99m, "Whiskey de Tennesse", "Whiskey", 40f, "arbol.jpg"),
                 new Producto(2, "Johnnie Walker", "Scotch", 49.99m, "Scotch blended", "Whiskey", 40f, "arbol2.jpg"),
@@ -108,12 +110,15 @@ namespace Prueba_Proyecto.VM
                 new Producto(8, "Bacardi", "Ron Superior", 20.99m, "Ron superior de alta calidad", "Ron", 40.0f, "planeta.jpg"),
                 new Producto(9, "Smirnoff", "Vodka", 17.99m, "Vodka premium", "Vodka", 37.5f, "sol.jpg"),
                 new Producto(10, "Tequila Don Julio", "Tequila Blanco", 39.99m, "Tequila de agave azul 100% puro", "Tequila", 40.0f, "mano.jpg")
-            };
-            foreach (Producto producto in productos)
+            };*/
+
+            
+
+            /*foreach (Producto producto in productos)
             {
                 producto.Foto = azure.SubirFoto(producto.Foto);
-            }
-            this.ListaProductos = productos;
+            }*/
+            this.ListaProductos = bd.SacarProductos();
 
             ObservableCollection<Empleado> empleados = new ObservableCollection<Empleado>
             {
@@ -128,10 +133,10 @@ namespace Prueba_Proyecto.VM
                 new Empleado(9, "Miguel", "Fernández", "Analista", 3500.00, "90123456I", new DateTime(2020, 9, 1), "persona9.jpg"),
                 new Empleado(10, "Luisa", "García", "Diseñadora", 3800.00, "01234567J", new DateTime(2020, 10, 1), "persona10.jpg")
             };
-            foreach (Empleado empleado in empleados)
+            /*foreach (Empleado empleado in empleados)
             {
                 empleado.Foto = azure.SubirFoto(empleado.Foto);
-            }
+            }*/
             this.ListaEmpleados = empleados;
 
             ObservableCollection<CompaniaEnvio> companias = new ObservableCollection<CompaniaEnvio>()
@@ -172,10 +177,10 @@ namespace Prueba_Proyecto.VM
                     Foto = "correos.png"
                 }
             };
-            foreach (CompaniaEnvio compania in companias)
+            /*foreach (CompaniaEnvio compania in companias)
             {
                 compania.Foto = azure.SubirFoto(compania.Foto);
-            }
+            }*/
             this.ListaCompanias = companias;
 
             ObservableCollection<Pedido> pedidos = new ObservableCollection<Pedido>()
