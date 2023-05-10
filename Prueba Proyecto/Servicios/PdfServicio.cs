@@ -416,7 +416,7 @@ namespace Prueba_Proyecto.Servicios
             // Agregar las celdas de los datos de las compañías de envío
             foreach (CompaniaEnvio compania in companiaEnvios)
             {
-                tabla.AddCell(new PdfPCell(new Phrase(compania.IdCompañiaEnvios.ToString())) { NoWrap = true, Padding = 5f });
+                tabla.AddCell(new PdfPCell(new Phrase(compania.IdCompaniasEnvios.ToString())) { NoWrap = true, Padding = 5f });
                 tabla.AddCell(new PdfPCell(new Phrase(compania.Nombre)) { NoWrap = true, Padding = 5f });
                 tabla.AddCell(new PdfPCell(new Phrase(compania.Telefono)) { NoWrap = true, Padding = 5f });
             }

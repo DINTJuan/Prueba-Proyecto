@@ -14,7 +14,7 @@ namespace Prueba_Proyecto.Clases
         private string telefono;
         private string foto;
 
-        public int IdCompañiaEnvios
+        public int IdCompaniasEnvios
         {
             get { return idCompañiaEnvios; }
             set { SetProperty(ref idCompañiaEnvios, value); }
