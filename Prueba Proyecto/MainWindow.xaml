@@ -244,8 +244,8 @@
                             <Grid Background="White">
                                 <DataGrid ItemsSource="{Binding ListaDetallesPedidosBuscados}" AutoGenerateColumns="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="ID Pedido" Binding="{Binding IdPedido}" />
-                                        <DataGridTextColumn Header="IdProducto" Binding="{Binding IdProducto}" />
+                                        <DataGridTextColumn Header="ID Pedido" Binding="{Binding DetallespedidosPK.IdPedido}" />
+                                        <DataGridTextColumn Header="IdProducto" Binding="{Binding DetallespedidosPK.IdProducto}" />
                                         <DataGridTextColumn Header="Precio Unidad" Binding="{Binding PrecioUnidad}" />
                                         <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}" />
                                         <DataGridTextColumn Header="Descuento" Binding="{Binding Descuento}"/>

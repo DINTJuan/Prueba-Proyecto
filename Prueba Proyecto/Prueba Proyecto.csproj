@@ -161,6 +161,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Clases\DetallespedidosPK.cs" />
     <Compile Include="Servicios\AzureServicio.cs" />
     <Compile Include="Servicios\BaseDatosServicio.cs" />
     <Compile Include="Servicios\PdfServicio.cs" />

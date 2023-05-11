@@ -128,6 +128,42 @@ namespace Prueba_Proyecto.Servicios
             return clientes;
         }
 
+        public ObservableCollection<DetallesPedido> SacarDetallesPedidos()
+        {
+            string apiUrlDetallesPedidos = "http://localhost:8080/LicoreriaAPiJPA/tienda/detallespedidos";
+
+            ObservableCollection<DetallesPedido> destallespedidos = new ObservableCollection<DetallesPedido>();
+
+            try
+            {
+                using (HttpClient httpDetallesPedidos = new HttpClient())
+                {
+                    HttpResponseMessage response = httpDetallesPedidos.GetAsync(apiUrlDetallesPedidos).GetAwaiter().GetResult();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonResponse = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                        List<DetallesPedido> listaDetallesPedidos = JsonConvert.DeserializeObject<List<DetallesPedido>>(jsonResponse);
+
+                        // Agregar los clientes a la ObservableCollection
+                        foreach (DetallesPedido detallepedido in listaDetallesPedidos)
+                        {
+                            destallespedidos.Add(detallepedido);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("La solicitud no fue exitosa. Código de estado: " + response.StatusCode);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocurrió un error: " + ex.Message);
+            }
+            return destallespedidos;
+        }
+
         public ObservableCollection<Empleado> SacarEmpleados()
         {
             string apiUrlEmpleados = "http://localhost:8080/LicoreriaAPiJPA/tienda/empleados";
@@ -168,7 +204,107 @@ namespace Prueba_Proyecto.Servicios
 
             return empleados;
         }
-        // Metodo para convertir la fecha al formato correcto
+
+        public ObservableCollection<Pedido> SacarPedidos()
+        {
+            string apiUrlPedidos = "http://localhost:8080/LicoreriaAPiJPA/tienda/pedidos";
+
+            ObservableCollection<Pedido> pedidos = new ObservableCollection<Pedido>();
+
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    HttpResponseMessage response = httpClient.GetAsync(apiUrlPedidos).GetAwaiter().GetResult();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonResponse = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                        List<object> listaPedidos = JsonConvert.DeserializeObject<List<object>>(jsonResponse);
+
+                        // Convertir los objetos genéricos a objetos de tipo Empleado
+                        foreach (object pedidoObj in listaPedidos)
+                        {
+                            // Convertir el objeto genérico al formato de Empleado
+                            Pedido pedido = ConvertirAPedido(pedidoObj);
+
+                            // Agregar el empleado a la ObservableCollection
+                            pedidos.Add(pedido);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("La solicitud no fue exitosa. Código de estado: " + response.StatusCode);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocurrió un error: " + ex.Message);
+            }
+
+            return pedidos;
+        }
+
+        // Metodo para convertir la fecha al formato correcto pedido
+        private Pedido ConvertirAPedido(object pedidoObj)
+        {
+            Pedido pedido = new Pedido();
+
+            // Convertir el objeto genérico al formato de Pedido
+            try
+            {
+                JObject pedidoJson = JObject.Parse(pedidoObj.ToString());
+
+                pedido.IdPedido = int.Parse(pedidoJson["idPedido"].ToString());
+                pedido.FechaPedido = DateTime.ParseExact(pedidoJson["fechaPedido"].ToString(), "yyyy-MM-ddTHH:mm:ssZ'['UTC']'", CultureInfo.InvariantCulture);
+                pedido.FechaEntrega = DateTime.ParseExact(pedidoJson["fechaEntrega"].ToString(), "yyyy-MM-ddTHH:mm:ssZ'['UTC']'", CultureInfo.InvariantCulture);
+                pedido.FechaEnvio = DateTime.ParseExact(pedidoJson["fechaEnvio"].ToString(), "yyyy-MM-ddTHH:mm:ssZ'['UTC']'", CultureInfo.InvariantCulture);
+                pedido.FormaEnvio = pedidoJson["formaEnvio"].ToString();
+                pedido.Destinatario = pedidoJson["destinatario"].ToString();
+                pedido.DirrecionEnvio = pedidoJson["direccionEnvio"].ToString();
+
+                // Convertir el objeto Cliente
+                JObject clienteJson = pedidoJson["idCliente"] as JObject;
+                Cliente cliente = new Cliente();
+                cliente.IdCliente = int.Parse(clienteJson["idCliente"].ToString());
+                cliente.Nombre = clienteJson["nombre"].ToString();
+                cliente.Apellidos = clienteJson["apellidos"].ToString();
+                cliente.Ciudad = clienteJson["ciudad"].ToString();
+                cliente.CodigoPostal = clienteJson["codigoPostal"].ToString();
+                pedido.IdCliente = cliente;
+
+                // Convertir el objeto Empleado
+                JObject empleadoJson = pedidoJson["idEmpleado"] as JObject;
+                Empleado empleado = new Empleado();
+                empleado.IdEmpleado = int.Parse(empleadoJson["idEmpleado"].ToString());
+                empleado.Nombre = empleadoJson["nombre"].ToString();
+                empleado.Apellidos = empleadoJson["apellidos"].ToString();
+                empleado.Puesto = empleadoJson["puesto"].ToString();
+                empleado.Sueldo = double.Parse(empleadoJson["sueldo"].ToString());
+                empleado.Dni = empleadoJson["dni"].ToString();
+                empleado.FechaContratacion = DateTime.ParseExact(empleadoJson["fechaContratacion"].ToString(), "yyyy-MM-ddTHH:mm:ssZ'['UTC']'", CultureInfo.InvariantCulture);
+                empleado.Foto = empleadoJson["foto"].ToString();
+                pedido.IdEmpleado = empleado;
+
+                // Convertir el objeto CompaniaEnvio
+                JObject companiaEnvioJson = pedidoJson["idCompaniasEnvios"] as JObject;
+                CompaniaEnvio companiaEnvio = new CompaniaEnvio();
+                companiaEnvio.IdCompaniasEnvios = int.Parse(companiaEnvioJson["idCompaniasEnvios"].ToString());
+                companiaEnvio.Nombre = companiaEnvioJson["nombre"].ToString();
+                companiaEnvio.Telefono = companiaEnvioJson["telefono"].ToString();
+                companiaEnvio.Foto = companiaEnvioJson["foto"].ToString();
+                pedido.IdCompañiaEnvio = companiaEnvio;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocurrió un error al convertir el objeto genérico a Pedido: " + ex.Message);
+            }
+
+            return pedido;
+        }
+
+        // Metodo para convertir la fecha al formato correcto empleado
         private Empleado ConvertirAEmpleado(object empleadoObj)
         {
             Empleado empleado = new Empleado();
@@ -306,7 +442,6 @@ namespace Prueba_Proyecto.Servicios
                         {
                             nombre = cliente.Nombre,
                             apellidos = cliente.Apellidos,
-                            direccion = cliente.Direcion,
                             ciudad = cliente.Ciudad,
                             codigoPostal = cliente.CodigoPostal
                         };
@@ -334,6 +469,54 @@ namespace Prueba_Proyecto.Servicios
                     }
                 }
             }
+        }
+
+        public void SubirDetallesPedidos(ObservableCollection<DetallesPedido> detallesPedidosSub)
+        {
+            string baseUrl = "http://localhost:8080/LicoreriaAPiJPA/tienda/detallespedidos";
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                foreach (DetallesPedido detallesPedido in detallesPedidosSub)
+                {
+                    try
+                    {
+                        var detallesPedidosMin = new
+                        {
+                            precioUnidad = detallesPedido.PrecioUnidad,
+                            cantidad = detallesPedido.Cantidad,
+                            descuento = detallesPedido.Descuento,
+                            detallespedidosPK = new
+                            {
+                                idPedido = detallesPedido.DetallespedidosPK.IdPedido,
+                                idProducto = detallesPedido.DetallespedidosPK.IdProducto
+                            }
+                        };
+
+                        string json = JsonConvert.SerializeObject(detallesPedidosMin); // Convertir el empleado sin el campo IdEmpleado a JSON
+                        HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                        HttpResponseMessage response = httpClient.PutAsync(baseUrl, content).GetAwaiter().GetResult();
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            Console.WriteLine("DetallesPedido actualizado: " + detallesPedido.DetallespedidosPK.IdPedido);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error al actualizar el empleado: " + detallesPedido.DetallespedidosPK.IdPedido);
+                            Console.WriteLine("Código de estado: " + response.StatusCode);
+                            Console.WriteLine("Mensaje de error: " + response.ReasonPhrase);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Ocurrió un error al actualizar el empleado: " + detallesPedido.DetallespedidosPK.IdPedido);
+                        Console.WriteLine("Error: " + ex.Message);
+                    }
+                }
+                
+            }
+
         }
 
         public void SubirEmpleados(ObservableCollection<Empleado> empleadosSub)
@@ -379,6 +562,54 @@ namespace Prueba_Proyecto.Servicios
                     catch (Exception ex)
                     {
                         Console.WriteLine("Ocurrió un error al actualizar el empleado: " + empleado.IdEmpleado);
+                        Console.WriteLine("Error: " + ex.Message);
+                    }
+                }
+            }
+        }
+
+        public void SubirPedidos(ObservableCollection<Pedido> pedidosSub)
+        {
+            string baseUrl = "http://localhost:8080/LicoreriaAPiJPA/tienda/pedidos/";
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                foreach (Pedido pedido in pedidosSub)
+                {
+                    try
+                    {
+                        string apiUrl = baseUrl + pedido.IdPedido; // Construir la URL completa con el ID del empleado
+
+                        // Crear una copia del empleado sin incluir el campo IdEmpleado
+                        var pedidoSinId = new
+                        {
+                            destinatario = pedido.Destinatario,
+                            direccionEnvio = pedido.DirrecionEnvio,
+                            fechaEntrega = pedido.FechaEntrega,
+                            fechaEnvio = pedido.FechaEnvio,
+                            fechaPedido = pedido.FechaPedido,
+                            formaEnvio = pedido.FormaEnvio,
+                        };
+
+                        string json = JsonConvert.SerializeObject(pedidoSinId); // Convertir el pedido sin el campo IdPedido a JSON
+                        HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                        HttpResponseMessage response = httpClient.PutAsync(apiUrl, content).GetAwaiter().GetResult();
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            Console.WriteLine("Pedido actualizado: " + pedido.IdPedido);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error al actualizar el pedido: " + pedido.IdPedido);
+                            Console.WriteLine("Código de estado: " + response.StatusCode);
+                            Console.WriteLine("Mensaje de error: " + response.ReasonPhrase);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Ocurrió un error al actualizar el pedido: " + pedido.IdPedido);
                         Console.WriteLine("Error: " + ex.Message);
                     }
                 }

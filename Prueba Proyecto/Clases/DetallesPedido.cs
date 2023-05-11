@@ -9,23 +9,15 @@ namespace Prueba_Proyecto.Clases
 {
     internal class DetallesPedido : ObservableObject
     {
-        private int idPedido;
-        private int idProducto;
         private decimal precioUnidad;
         private int cantidad;
         private decimal descuento;
-        private Pedido pedido;
-        private Producto producto;
+        private DetallespedidosPK detallespedidosPK;
 
-        public int IdPedido
+        public DetallespedidosPK DetallespedidosPK
         {
-            get { return idPedido; }
-            set { SetProperty(ref idPedido, value); }
-        }
-        public int IdProducto
-        {
-            get { return idProducto; }
-            set { SetProperty(ref idProducto, value); }
+            get { return detallespedidosPK; }
+            set { SetProperty(ref detallespedidosPK, value); }
         }
         public decimal PrecioUnidad
         {
@@ -42,34 +34,17 @@ namespace Prueba_Proyecto.Clases
             get { return descuento; }
             set { SetProperty (ref descuento, value); }
         }
-        public Pedido Pedido
-        {
-            get { return pedido; }
-            set { SetProperty (ref pedido, value); }
-        }
-        public Producto Producto
-        {
-            get { return producto; }
-            set { SetProperty<Producto> (ref producto, value); }
-        }
 
         public DetallesPedido()
         {
         }
 
-        public DetallesPedido(int idPedido, int idProducto, decimal precioUnidad, int cantidad, decimal descuento)
+        public DetallesPedido(decimal precioUnidad, int cantidad, decimal descuento, DetallespedidosPK detallespedidosPK)
         {
-            this.idPedido = idPedido;
-            this.idProducto = idProducto;
             this.precioUnidad = precioUnidad;
             this.cantidad = cantidad;
             this.descuento = descuento;
-        }
-
-        public DetallesPedido(int idPedido, int idProducto, decimal precioUnidad, int cantidad, decimal descuento, Pedido pedido, Producto producto) : this(idPedido, idProducto, precioUnidad, cantidad, descuento)
-        {
-            this.pedido = pedido;
-            this.producto = producto;
+            this.detallespedidosPK = detallespedidosPK;
         }
 
         private decimal TotalSinDescuento()

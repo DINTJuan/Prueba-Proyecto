@@ -103,28 +103,8 @@ namespace Prueba_Proyecto.VM
             this.ListaEmpleados = bd.SacarEmpleados();
             this.ListaCompanias = bd.SacarCompaniasEnvio();
             this.listaClientes = bd.SacarClientes();
-
-            ObservableCollection<Pedido> pedidos = new ObservableCollection<Pedido>()
-            {
-                new Pedido(1, 1, 1, 1, new DateTime(2022, 1, 1), new DateTime(2022, 1, 8), new DateTime(2022, 1, 2), "Express", "Juan Perez", "Calle 123"),
-                new Pedido(2, 2, 2, 2, new DateTime(2022, 1, 2), new DateTime(2022, 1, 9), new DateTime(2022, 1, 3), "Normal", "Maria Gomez", "Avenida 456"),
-                new Pedido(3, 3, 3, 3, new DateTime(2022, 1, 3), new DateTime(2022, 1, 10), new DateTime(2022, 1, 4), "Express", "Luis Rodriguez", "Plaza 789"),
-                new Pedido(4, 4, 4, 4, new DateTime(2022, 1, 4), new DateTime(2022, 1, 11), new DateTime(2022, 1, 5), "Normal", "Ana Lopez", "Calle 321"),
-                new Pedido(5, 5, 5, 5, new DateTime(2022, 1, 5), new DateTime(2022, 1, 12), new DateTime(2022, 1, 6), "Express", "Jose Martinez", "Avenida 654"),
-                new Pedido(6, 6, 6, 6, new DateTime(2022, 1, 6), new DateTime(2022, 1, 13), new DateTime(2022, 1, 7), "Normal", "Laura Perez", "Plaza 987"),
-                new Pedido(7, 7, 7, 7, new DateTime(2022, 1, 7), new DateTime(2022, 1, 14), new DateTime(2022, 1, 8), "Express", "Carlos Garcia", "Calle 555"),
-            };
-            this.ListaPedidos = pedidos;
-
-            ObservableCollection<DetallesPedido> detallesPedido = new ObservableCollection<DetallesPedido>
-            {
-                new DetallesPedido(1, 1, 10.0m, 2, 5.0m),
-                new DetallesPedido(1, 2, 15.0m, 1, 0.0m),
-                new DetallesPedido(2, 3, 20.0m, 3, 10.0m),
-                new DetallesPedido(2, 1, 10.0m, 2, 0.0m),
-                new DetallesPedido(3, 2, 15.0m, 1, 0.0m)
-            };
-            this.ListaDetallesPedidos = detallesPedido;
+            this.ListaPedidos = bd.SacarPedidos();
+            this.ListaDetallesPedidos = bd.SacarDetallesPedidos();
         }
 
         public void BuscarPorID(string id)
@@ -132,7 +112,7 @@ namespace Prueba_Proyecto.VM
             ListaDetallesPedidosBuscados = new ObservableCollection<DetallesPedido>();
             foreach (DetallesPedido detapedido in ListaDetallesPedidos)
             {
-                if(detapedido.IdPedido.Equals(int.Parse(id)))
+                if(detapedido.DetallespedidosPK.IdPedido.Equals(int.Parse(id)))
                 {
                     ListaDetallesPedidosBuscados.Add(detapedido);
                 }

@@ -10,38 +10,20 @@ namespace Prueba_Proyecto.Clases
     internal class Pedido : ObservableObject
     {
         private int idPedido;
-        private int idCliente;
-        private int idEmpleado;
-        private int idCompañiaEnvio;
         private DateTime fechaPedido;
         private DateTime fechaEntrega;
         private DateTime fechaEnvio;
         private string formaEnvio;
         private string destinatario;
         private string dirreccionEnvio;
-        private Cliente cliente;
-        private Empleado empleado;
-        private CompaniaEnvio compañia;
+        private Cliente idCliente;
+        private Empleado idEmpleado;
+        private CompaniaEnvio idCompañiaEnvio;
 
         public int IdPedido
         {
             get { return idPedido; }
             set { SetProperty(ref idPedido, value); }
-        }
-        public int IdCliente
-        {
-            get { return idCliente; }
-            set { SetProperty(ref idCliente, value); }
-        }
-        public int IdEmpleado
-        {
-            get { return idEmpleado; }
-            set { SetProperty(ref idEmpleado, value); }
-        }
-        public int IdCompañiaEnvio
-        {
-            get { return idCompañiaEnvio; }
-            set { SetProperty(ref idCompañiaEnvio, value); }
         }
         public DateTime FechaPedido
         {
@@ -73,55 +55,38 @@ namespace Prueba_Proyecto.Clases
             get { return dirreccionEnvio; }
             set { SetProperty (ref dirreccionEnvio, value); }
         }
-        public Cliente Cliente
+        public Cliente IdCliente
         {
-            get { return cliente; }
-            set { SetProperty (ref cliente, value); }
+            get { return idCliente; }
+            set { SetProperty (ref idCliente, value); }
         }
-        public Empleado Empleado
+        public Empleado IdEmpleado
         {
-            get { return empleado; }
-            set { SetProperty (ref empleado, value); }
+            get { return idEmpleado; }
+            set { SetProperty (ref idEmpleado, value); }
         }
-        public CompaniaEnvio CompaniaEnvio
+        public CompaniaEnvio IdCompañiaEnvio
         {
-            get { return compañia; }
-            set { SetProperty(ref compañia, value); }
+            get { return idCompañiaEnvio; }
+            set { SetProperty(ref idCompañiaEnvio, value); }
         }
 
         public Pedido()
         {
         }
 
-        public Pedido(int idPedido, int idCliente, int idEmpleado, int idCompañiaEnvio, DateTime fechaPedido, DateTime fechaEntrega, DateTime fechaEnvio, string formaEnvio, string destinatario, string dirreccionEnvio)
+        public Pedido(int idPedido, DateTime fechaPedido, DateTime fechaEntrega, DateTime fechaEnvio, string formaEnvio, string destinatario, string dirreccionEnvio, Cliente idCliente, Empleado idEmpleado, CompaniaEnvio idCompañiaEnvio)
         {
             this.idPedido = idPedido;
-            this.idCliente = idCliente;
-            this.idEmpleado = idEmpleado;
-            this.idCompañiaEnvio = idCompañiaEnvio;
             this.fechaPedido = fechaPedido;
             this.fechaEntrega = fechaEntrega;
             this.fechaEnvio = fechaEnvio;
             this.formaEnvio = formaEnvio;
             this.destinatario = destinatario;
             this.dirreccionEnvio = dirreccionEnvio;
-        }
-
-        public Pedido(int idPedido, int idCliente, int idEmpleado, int idCompañiaEnvio, DateTime fechaPedido, DateTime fechaEntrega, DateTime fechaEnvio, string formaEnvio, string destinatario, string dirreccionEnvio, Cliente cliente, Empleado empleado, CompaniaEnvio compañia)
-        {
-            this.idPedido = idPedido;
             this.idCliente = idCliente;
             this.idEmpleado = idEmpleado;
             this.idCompañiaEnvio = idCompañiaEnvio;
-            this.fechaPedido = fechaPedido;
-            this.fechaEntrega = fechaEntrega;
-            this.fechaEnvio = fechaEnvio;
-            this.formaEnvio = formaEnvio;
-            this.destinatario = destinatario;
-            this.dirreccionEnvio = dirreccionEnvio;
-            this.cliente = cliente;
-            this.empleado = empleado;
-            this.compañia = compañia;
         }
     }
 }

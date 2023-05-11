@@ -134,8 +134,8 @@ namespace Prueba_Proyecto.Servicios
             // Agregar las celdas de los datos de los detalles de pedidos
             foreach (DetallesPedido detallePedido in detallesPedidos)
             {
-                tabla.AddCell(new PdfPCell(new Phrase(detallePedido.IdPedido.ToString())) { NoWrap = true, Padding = 5f });
-                tabla.AddCell(new PdfPCell(new Phrase(detallePedido.IdProducto.ToString())) { NoWrap = true, Padding = 5f });
+                tabla.AddCell(new PdfPCell(new Phrase(detallePedido.DetallespedidosPK.IdPedido.ToString())) { NoWrap = true, Padding = 5f });
+                tabla.AddCell(new PdfPCell(new Phrase(detallePedido.DetallespedidosPK.IdProducto.ToString())) { NoWrap = true, Padding = 5f });
                 tabla.AddCell(new PdfPCell(new Phrase(detallePedido.PrecioUnidad.ToString())) { NoWrap = true, Padding = 5f });
                 tabla.AddCell(new PdfPCell(new Phrase(detallePedido.Cantidad.ToString())) { NoWrap = true, Padding = 5f });
                 tabla.AddCell(new PdfPCell(new Phrase(detallePedido.Descuento.ToString())) { NoWrap = true, Padding = 5f });
@@ -280,9 +280,9 @@ namespace Prueba_Proyecto.Servicios
             foreach (Pedido pedido in pedidos)
             {
                 tabla.AddCell(new PdfPCell(new Phrase(pedido.IdPedido.ToString())) { NoWrap = true, Padding = 5f });
-                tabla.AddCell(new PdfPCell(new Phrase(pedido.IdCliente.ToString())) { NoWrap = true, Padding = 5f });
-                tabla.AddCell(new PdfPCell(new Phrase(pedido.IdEmpleado.ToString())) { NoWrap = true, Padding = 5f });
-                tabla.AddCell(new PdfPCell(new Phrase(pedido.IdCompañiaEnvio.ToString())) { NoWrap = true, Padding = 5f });
+                tabla.AddCell(new PdfPCell(new Phrase(pedido.IdCliente.IdCliente.ToString())) { NoWrap = true, Padding = 5f });
+                tabla.AddCell(new PdfPCell(new Phrase(pedido.IdEmpleado.IdEmpleado.ToString())) { NoWrap = true, Padding = 5f });
+                tabla.AddCell(new PdfPCell(new Phrase(pedido.IdCompañiaEnvio.IdCompaniasEnvios.ToString())) { NoWrap = true, Padding = 5f });
                 tabla.AddCell(new PdfPCell(new Phrase(pedido.FechaPedido.ToShortDateString())) { NoWrap = true, Padding = 5f });
                 tabla.AddCell(new PdfPCell(new Phrase(pedido.FechaEntrega.ToShortDateString())) { NoWrap = true, Padding = 5f });
                 tabla.AddCell(new PdfPCell(new Phrase(pedido.FechaEnvio.ToShortDateString())) { NoWrap = true, Padding = 5f });
@@ -344,7 +344,6 @@ namespace Prueba_Proyecto.Servicios
             tabla.AddCell(new PdfPCell(new Phrase("ID", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD))));
             tabla.AddCell(new PdfPCell(new Phrase("Nombre", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD))));
             tabla.AddCell(new PdfPCell(new Phrase("Apellidos", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD))));
-            tabla.AddCell(new PdfPCell(new Phrase("Dirección", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD))));
             tabla.AddCell(new PdfPCell(new Phrase("Ciudad", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD))));
             tabla.AddCell(new PdfPCell(new Phrase("Código Postal", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD))));
 
@@ -354,7 +353,6 @@ namespace Prueba_Proyecto.Servicios
                 tabla.AddCell(new PdfPCell(new Phrase(cliente.IdCliente.ToString())) { NoWrap = true, Padding = 5f });
                 tabla.AddCell(new PdfPCell(new Phrase(cliente.Nombre)) { NoWrap = true, Padding = 5f });
                 tabla.AddCell(new PdfPCell(new Phrase(cliente.Apellidos)) { NoWrap = true, Padding = 5f });
-                tabla.AddCell(new PdfPCell(new Phrase(cliente.Direcion)) { NoWrap = true, Padding = 5f });
                 tabla.AddCell(new PdfPCell(new Phrase(cliente.Ciudad)) { NoWrap = true, Padding = 5f });
                 tabla.AddCell(new PdfPCell(new Phrase(cliente.CodigoPostal)) { NoWrap = true, Padding = 5f });
             }
