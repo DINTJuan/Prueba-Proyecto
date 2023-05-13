@@ -24,14 +24,17 @@ namespace Prueba_Proyecto.VM
         private Empleado empleadoSelecionado;
         private ObservableCollection<CompaniaEnvio> listaCompanias;
         private CompaniaEnvio companiaSelecionado;
+        private Pedido pedidoSeleccionado;
+        private Cliente clienteSeleccionado;
         private ObservableCollection<Pedido> listaPedidos;
         private ObservableCollection<DetallesPedido> listaDetallesPedidos;
         private ObservableCollection<DetallesPedido> listaDetallesPedidosBuscados;
         private ObservableCollection<Cliente> listaClientes;
 
         private PdfServicio pdfServicio = new PdfServicio();
-        
-        
+        private AzureServicio azure = new AzureServicio();
+        private BaseDatosServicio bd = new BaseDatosServicio();
+
 
 
         public ObservableCollection<Producto> ListaProductos
@@ -44,6 +47,17 @@ namespace Prueba_Proyecto.VM
         {
             get { return productoSelecionado; }
             set { SetProperty(ref productoSelecionado, value); }
+        }
+
+        public Pedido PedidoSeleccionado
+        {
+            get { return pedidoSeleccionado; }
+            set { SetProperty(ref pedidoSeleccionado, value); }
+        }
+        public Cliente ClienteSeleccionado
+        {
+            get { return clienteSeleccionado; }
+            set { SetProperty(ref clienteSeleccionado, value); }
         }
 
         public ObservableCollection<Empleado> ListaEmpleados
@@ -96,9 +110,6 @@ namespace Prueba_Proyecto.VM
 
         public MainWindowVM()
         {
-            AzureServicio azure = new AzureServicio();
-            BaseDatosServicio bd = new BaseDatosServicio();
-
             this.ListaProductos = bd.SacarProductos();
             this.ListaEmpleados = bd.SacarEmpleados();
             this.ListaCompanias = bd.SacarCompaniasEnvio();
@@ -117,6 +128,52 @@ namespace Prueba_Proyecto.VM
                     ListaDetallesPedidosBuscados.Add(detapedido);
                 }
             }
+        }
+
+        public void EliminarProducto()
+        {
+            bd.EliminarProducto(ProductoSelecionado.IdProducto);
+            ListaProductos.Remove(ProductoSelecionado);
+        }
+        public void EliminarEmpleado()
+        {
+            bd.EliminarEmpleado(EmpleadoSelecionado.IdEmpleado);
+            ListaEmpleados.Remove(EmpleadoSelecionado);
+        }
+        public void EliminarCliente()
+        {
+            bd.EliminarCliente(ClienteSeleccionado.IdCliente);
+            ListaClientes.Remove(ClienteSeleccionado);
+        }
+        public void EliminarPedido()
+        {
+            bd.EliminarPedido(PedidoSeleccionado.IdPedido);
+            ListaPedidos.Remove(PedidoSeleccionado);
+        }
+        public void EliminarCompaniaEnvios()
+        {
+            bd.EliminarCompaniaEnvio(CompaniaSelecionado.IdCompaniasEnvios);
+            ListaCompanias.Remove(CompaniaSelecionado);
+        }
+        public void SubirProductos()
+        {
+            bd.SubirProductos(ListaProductos);
+        }
+        public void SubirEmpleados()
+        {
+            bd.SubirEmpleados(ListaEmpleados);
+        }
+        public void SubirClientes()
+        {
+            bd.SubirClientes(ListaClientes);
+        }
+        public void SubirCompania()
+        {
+            bd.SubirCompaniasEnvio(ListaCompanias);
+        }
+        public void SubirPedidos()
+        {
+            bd.SubirPedidos(ListaPedidos);
         }
 
         public void QuitarProducto()

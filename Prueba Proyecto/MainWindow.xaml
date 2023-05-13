@@ -6,7 +6,7 @@
         xmlns:clases="clr-namespace:Prueba_Proyecto.Clases"
         xmlns:local="clr-namespace:Prueba_Proyecto"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Icon="Imagenes\icono.ico">
+        Title="MainWindow" Height="550" Width="950" Icon="Imagenes\icono.ico">
     <Window.Resources>
         <!-- Estilo para los botones de la barra lateral -->
         <Style TargetType="Button" x:Key="BotonLateral">
@@ -205,7 +205,7 @@
             </TabItem>
             <TabItem Header="Pedidos" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
                 <Grid>
-                    <DataGrid ItemsSource="{Binding ListaPedidos}" AutoGenerateColumns="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <DataGrid ItemsSource="{Binding ListaPedidos}" SelectedItem="{Binding Path=PedidoSeleccionado}" AutoGenerateColumns="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding IdPedido}" />
                             <DataGridTextColumn IsReadOnly="True" Header="Fecha Pedido" Binding="{Binding FechaPedido, StringFormat=dd/MM/yyyy}" />
@@ -217,9 +217,11 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
+                        <Button x:Name="SubirPedidoButton" Content="Subir" Margin="10" Click="SubirPedidoButton_Click" Width="120" VerticalAlignment="Bottom" Template="{DynamicResource ButtonControlTemplateBorde}"/>
                         <Button Margin="10" Content="Detalles Pedido" Click="Detalles_Click" Width="120" VerticalAlignment="Bottom" Template="{DynamicResource ButtonControlTemplateBorde}"/>
                         <Button x:Name="PDFPedidosButton" Margin="10" Content="Generar Pedidos" Width="120" VerticalAlignment="Bottom" Template="{DynamicResource ButtonControlTemplateBorde}" Click="PDFPedidosButton_Click"/>
                         <Button x:Name="PDFDetallesButton" Margin="10" Content="Generar Detalles" Width="120" VerticalAlignment="Bottom" Template="{DynamicResource ButtonControlTemplateBorde}" Click="PDFDetallesButton_Click"/>
+                        <Button x:Name="EliminarPedido" Content="Eliminar" Margin="10" Width="120" VerticalAlignment="Bottom" Template="{DynamicResource ButtonControlTemplateBorde}" Click="EliminarPedido_Click" />
                     </StackPanel>
                     <Popup x:Name="VentanaEmergenteId" Width="200" Height="200" Placement="Center" IsOpen="False">
                         <Border BorderBrush="#4a161c" BorderThickness="2">
@@ -259,7 +261,7 @@
             </TabItem>
             <TabItem Header="Clientes" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
                 <Grid>
-                    <DataGrid ItemsSource="{Binding ListaClientes}" AutoGenerateColumns="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <DataGrid ItemsSource="{Binding ListaClientes}" SelectedItem="{Binding Path=ClienteSeleccionado}" AutoGenerateColumns="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding IdCliente}" />
                             <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" />
@@ -269,7 +271,12 @@
                             <DataGridTextColumn Header="Ciudad" Binding="{Binding Ciudad}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="PDFClientesButton" Margin="10" Content="Generar PDF" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Template="{DynamicResource ButtonControlTemplateBorde}" Click="PDFClientesButton_Click"/>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
+                        <Button x:Name="SubirClienteButton" Content="Subir" Margin="10" Click="SubirClienteButton_Click" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Template="{DynamicResource ButtonControlTemplateBorde}"/>
+                        <Button x:Name="PDFClientesButton" Margin="10" Content="Generar PDF" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Template="{DynamicResource ButtonControlTemplateBorde}" Click="PDFClientesButton_Click"/>
+                        <Button x:Name="EliminarClienteButtom" Margin="10" Content="Eliminar" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Template="{DynamicResource ButtonControlTemplateBorde}" Click="EliminarClienteButtom_Click"/>
+                    </StackPanel>
+                    
                 </Grid>
             </TabItem>
             <TabItem Header="Compañías de transporte" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
@@ -292,11 +299,13 @@
                             <TextBlock>Telefono</TextBlock>
                             <TextBox Text="{Binding CompaniaSelecionado.Telefono}"/>
                             <TextBlock>Foto</TextBlock>
-                            <TextBox Text="{Binding CompaniaSelecionado.Foto}"/>
+                            <TextBox Text="{Binding CompaniaSelecionado.Foto}" IsReadOnly="True"/>
                             <Button x:Name="LimpiarSecButtonC" Margin="10" Background="DarkGray" Width="120" HorizontalAlignment="Left" Template="{DynamicResource ButtonControlTemplateBorde}" Click="LimpiarSecButtonC_Click">Limpiar selección</Button>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
                                 <Button x:Name="ListaButtonC" Content="Generar Lista PDF" Margin="10" Background="DarkGray" Width="100" Template="{DynamicResource ButtonControlTemplateBorde}" Click="ListaButtonC_Click"/>
                             </StackPanel>
+                            <Button x:Name="SubirCompaniaButton" Content="Subir" Background="DarkGray" Margin="10" Width="100" Click="SubirCompaniaButton_Click" Template="{DynamicResource ButtonControlTemplateBorde}"/>
+                            <Button x:Name="EliminarCompania" Content="Eliminar" Margin="10" Background="DarkGray" Width="100" Template="{DynamicResource ButtonControlTemplateBorde}" Click="EliminarCompania_Click" />
                         </StackPanel>
 
                     </Border>
@@ -330,11 +339,13 @@
                             <TextBlock>Fecha de Contratacion</TextBlock>
                             <TextBox Text="{Binding EmpleadoSelecionado.FechaContratacion}"/>
                             <TextBlock>Foto</TextBlock>
-                            <TextBox Text="{Binding EmpleadoSelecionado.Foto}"/>
+                            <TextBox Text="{Binding EmpleadoSelecionado.Foto}" IsReadOnly="True"/>
                             <Button x:Name="LimpiarSecButtonE" Margin="10" Background="DarkGray" Width="120" HorizontalAlignment="Left" Template="{DynamicResource ButtonControlTemplateBorde}" Click="LimpiarSecButtonE_Click">Limpiar selección</Button>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
                                 <Button x:Name="ListaButtonE" Content="Generar Lista PDF" Margin="10" Background="DarkGray" Width="100" Template="{DynamicResource ButtonControlTemplateBorde}" Click="ListaButtonE_Click"/>
                             </StackPanel>
+                            <Button x:Name="SubirEmpleadoButton" Content="Subir" Margin="10" Background="DarkGray" Width="100" Click="SubirEmpleadoButton_Click" Template="{DynamicResource ButtonControlTemplateBorde}"/>
+                            <Button x:Name="EliminarEmpleadoButton" Content="Eliminar" Margin="10" Background="DarkGray" Width="100" Template="{DynamicResource ButtonControlTemplateBorde}" Click="EliminarEmpleadoButton_Click" />
                         </StackPanel>
 
                     </Border>
@@ -368,12 +379,14 @@
                             <TextBlock>Graduacion</TextBlock>
                             <TextBox Text="{Binding ProductoSelecionado.Graduacion}"/>
                             <TextBlock>Foto</TextBlock>
-                            <TextBox Text="{Binding ProductoSelecionado.Foto}"/>
+                            <TextBox Text="{Binding ProductoSelecionado.Foto}" IsReadOnly="True"/>
                             <Button Click="LimpiarSecButton_Click" x:Name="LimpiarSecButton" Margin="10" Background="DarkGray" Width="120" HorizontalAlignment="Left" Template="{DynamicResource ButtonControlTemplateBorde}">Limpiar selección</Button>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
                                 <Button x:Name="PDFButton" Content="Generar PDF" Margin="10" Background="DarkGray" Width="100" Template="{DynamicResource ButtonControlTemplateBorde}" Click="PDFButton_Click"/>
                                 <Button x:Name="ListaButton" Content="Generar Lista PDF" Margin="10" Background="DarkGray" Width="100" Template="{DynamicResource ButtonControlTemplateBorde}" Click="ListaButton_Click"/>
                             </StackPanel>
+                            <Button x:Name="SubirProductoButton" Content="Subir" Margin="10" Background="DarkGray" Width="100" Click="SubirProductoButton_Click" Template="{DynamicResource ButtonControlTemplateBorde}"/>
+                            <Button x:Name="EliminarProductoButton" Content="Eliminar" Margin="10" Background="DarkGray" Width="100" Template="{DynamicResource ButtonControlTemplateBorde}" Click="EliminarProductoButton_Click"/>
                         </StackPanel>
                         
                     </Border>

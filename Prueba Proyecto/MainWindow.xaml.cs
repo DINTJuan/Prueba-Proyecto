@@ -134,5 +134,54 @@ namespace Prueba_Proyecto
         {
             vm.ImprimirPedidos();
         }
+
+        private void EliminarProductoButton_Click(object sender, RoutedEventArgs e)
+        {
+            vm.EliminarProducto();
+        }
+
+        private void EliminarEmpleadoButton_Click(object sender, RoutedEventArgs e)
+        {
+            vm.EliminarEmpleado();
+        }
+
+        private void EliminarCompania_Click(object sender, RoutedEventArgs e)
+        {
+            vm.EliminarCompaniaEnvios();
+        }
+
+        private void EliminarPedido_Click(object sender, RoutedEventArgs e)
+        {
+            vm.EliminarPedido();
+        }
+
+        private void EliminarClienteButtom_Click(object sender, RoutedEventArgs e)
+        {
+            vm.EliminarCliente();
+        }
+        private void SubirPedidoButton_Click(object sender, RoutedEventArgs e)
+        {
+            vm.SubirPedidos();
+        }
+
+        private void SubirClienteButton_Click(object sender, RoutedEventArgs e)
+        {
+            vm.SubirClientes();
+        }
+
+        private void SubirEmpleadoButton_Click(object sender, RoutedEventArgs e)
+        {
+            vm.SubirEmpleados();
+        }
+
+        private void SubirProductoButton_Click(object sender, RoutedEventArgs e)
+        {
+            vm.SubirProductos();
+        }
+
+        private void SubirCompaniaButton_Click(object sender, RoutedEventArgs e)
+        {
+            vm.SubirCompania();
+        }
     }
 }

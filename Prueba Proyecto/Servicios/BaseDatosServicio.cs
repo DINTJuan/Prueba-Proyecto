@@ -615,5 +615,164 @@ namespace Prueba_Proyecto.Servicios
                 }
             }
         }
+        public void EliminarProducto(int id)
+        {
+            string apiUrlEliminarProducto = "http://localhost:8080/LicoreriaAPiJPA/tienda/productos/" + id;
+
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    HttpResponseMessage response = httpClient.DeleteAsync(apiUrlEliminarProducto).GetAwaiter().GetResult();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine("Producto eliminado correctamente");
+                        // También puedes realizar alguna acción adicional después de eliminar el producto
+                    }
+                    else
+                    {
+                        Console.WriteLine("La solicitud no fue exitosa. Código de estado: " + response.StatusCode);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocurrió un error: " + ex.Message);
+            }
+        }
+
+        public void EliminarEmpleado(int id)
+        {
+            string apiUrlEliminarEmpleado = "http://localhost:8080/LicoreriaAPiJPA/tienda/empleados/" + id;
+
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    HttpResponseMessage response = httpClient.DeleteAsync(apiUrlEliminarEmpleado).GetAwaiter().GetResult();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine("Empleado eliminado correctamente");
+                        // También puedes realizar alguna acción adicional después de eliminar el empleado
+                    }
+                    else
+                    {
+                        Console.WriteLine("La solicitud no fue exitosa. Código de estado: " + response.StatusCode);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocurrió un error: " + ex.Message);
+            }
+        }
+
+        public void EliminarCliente(int id)
+        {
+            string apiUrlEliminarCliente = "http://localhost:8080/LicoreriaAPiJPA/tienda/clientes/" + id;
+
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    HttpResponseMessage response = httpClient.DeleteAsync(apiUrlEliminarCliente).GetAwaiter().GetResult();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine("Cliente eliminado correctamente");
+                        // También puedes realizar alguna acción adicional después de eliminar el cliente
+                    }
+                    else
+                    {
+                        Console.WriteLine("La solicitud no fue exitosa. Código de estado: " + response.StatusCode);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocurrió un error: " + ex.Message);
+            }
+        }
+
+        public void EliminarCompaniaEnvio(int id)
+        {
+            string apiUrlEliminarCompaniaEnvio = "http://localhost:8080/LicoreriaAPiJPA/tienda/companiasenvios/" + id;
+
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    HttpResponseMessage response = httpClient.DeleteAsync(apiUrlEliminarCompaniaEnvio).GetAwaiter().GetResult();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine("Compañía de envío eliminada correctamente");
+                        // También puedes realizar alguna acción adicional después de eliminar la compañía de envío
+                    }
+                    else
+                    {
+                        Console.WriteLine("La solicitud no fue exitosa. Código de estado: " + response.StatusCode);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocurrió un error: " + ex.Message);
+            }
+        }
+
+        public void EliminarPedido(int id)
+        {
+            string apiUrlEliminarPedido = "http://localhost:8080/LicoreriaAPiJPA/tienda/pedidos/" + id;
+
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    HttpResponseMessage response = httpClient.DeleteAsync(apiUrlEliminarPedido).GetAwaiter().GetResult();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine("Pedido eliminado correctamente");
+                    }
+                    else
+                    {
+                        Console.WriteLine("La solicitud no fue exitosa. Código de estado: " + response.StatusCode);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocurrió un error: " + ex.Message);
+            }
+        }
+
+        public void EliminarDetallePedido(int idp, int idpe)
+        {
+            string apiUrlEliminarDetallePedido = "http://localhost:8080/LicoreriaAPiJPA/tienda/detallespedidos/" + idp +"/"+ idpe;
+
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    HttpResponseMessage response = httpClient.DeleteAsync(apiUrlEliminarDetallePedido).GetAwaiter().GetResult();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine("Detalle de pedido eliminado correctamente");
+                    }
+                    else
+                    {
+                        Console.WriteLine("La solicitud no fue exitosa. Código de estado: " + response.StatusCode);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocurrió un error: " + ex.Message);
+            }
+        }
     }
 }
