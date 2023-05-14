@@ -13,6 +13,7 @@ using System.Collections.ObjectModel;
 using Prueba_Proyecto.Clases;
 using Prueba_Proyecto.Servicios;
 using System.Globalization;
+using System.Windows.Forms;
 
 namespace Prueba_Proyecto.VM
 {
@@ -20,6 +21,9 @@ namespace Prueba_Proyecto.VM
     {
         private ObservableCollection<Producto> listaProductos;
         private Producto productoSelecionado;
+        private Producto nuevoProducto;
+        private Empleado nuevoEmpleado;
+        private CompaniaEnvio nuevocompnia;
         private ObservableCollection<Empleado> listaEmpleados;
         private Empleado empleadoSelecionado;
         private ObservableCollection<CompaniaEnvio> listaCompanias;
@@ -34,6 +38,7 @@ namespace Prueba_Proyecto.VM
         private PdfServicio pdfServicio = new PdfServicio();
         private AzureServicio azure = new AzureServicio();
         private BaseDatosServicio bd = new BaseDatosServicio();
+        private OpenFileDialog openFileDialog = new OpenFileDialog();
 
 
 
@@ -47,6 +52,12 @@ namespace Prueba_Proyecto.VM
         {
             get { return productoSelecionado; }
             set { SetProperty(ref productoSelecionado, value); }
+        }
+
+        public Producto NuevoProducto
+        {
+            get { return nuevoProducto; }
+            set { SetProperty(ref nuevoProducto, value); }
         }
 
         public Pedido PedidoSeleccionado
@@ -71,6 +82,11 @@ namespace Prueba_Proyecto.VM
             get { return empleadoSelecionado; }
             set { SetProperty(ref empleadoSelecionado, value); }
         }
+        public Empleado NuevoEmpleado
+        {
+            get { return nuevoEmpleado; }
+            set { SetProperty(ref nuevoEmpleado, value); }
+        }
 
         public ObservableCollection<CompaniaEnvio> ListaCompanias
         {
@@ -82,6 +98,11 @@ namespace Prueba_Proyecto.VM
         {
             get { return companiaSelecionado; }
             set { SetProperty(ref companiaSelecionado, value); }
+        }
+        public CompaniaEnvio Nuevocompnia
+        {
+            get { return nuevocompnia; }
+            set { SetProperty(ref nuevocompnia, value); }
         }
 
         public ObservableCollection<Pedido> ListaPedidos
@@ -174,6 +195,7 @@ namespace Prueba_Proyecto.VM
         public void SubirPedidos()
         {
             bd.SubirPedidos(ListaPedidos);
+            bd.SubirDetallesPedidos(ListaDetallesPedidos);
         }
 
         public void QuitarProducto()
@@ -224,6 +246,95 @@ namespace Prueba_Proyecto.VM
         public void ImprimirDetallesPedidos()
         {
             pdfServicio.GenerarPDFDetallesPedido(ListaDetallesPedidos);
+        }
+        private void AbrirDialogo()
+        {
+            openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Archivos de imagen|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+            openFileDialog.ShowDialog();
+        }
+
+        public void CambiarImagenProducto()
+        {
+            AbrirDialogo();
+            if(!string.IsNullOrEmpty(openFileDialog.FileName))
+            {
+                ProductoSelecionado.Foto = azure.SubirFoto(openFileDialog.FileName);
+            }
+            
+        }
+        public void CambiarImagenEmpleado()
+        {
+            AbrirDialogo();
+            if (!string.IsNullOrEmpty(openFileDialog.FileName))
+            {
+                EmpleadoSelecionado.Foto = azure.SubirFoto(openFileDialog.FileName);
+            }
+        }
+
+        public void CambiarImagenCompania()
+        {
+            AbrirDialogo();
+            if (!string.IsNullOrEmpty(openFileDialog.FileName))
+            {
+                CompaniaSelecionado.Foto = azure.SubirFoto(openFileDialog.FileName);
+            }
+        }
+
+        public void CambiarImagenProductoNuevo()
+        {
+            AbrirDialogo();
+            if (!string.IsNullOrEmpty(openFileDialog.FileName))
+            {
+                NuevoProducto.Foto = azure.SubirFoto(openFileDialog.FileName);
+            }
+
+        }
+        public void CambiarImagenEmpleadoNuevo()
+        {
+            AbrirDialogo();
+            if (!string.IsNullOrEmpty(openFileDialog.FileName))
+            {
+                NuevoEmpleado.Foto = azure.SubirFoto(openFileDialog.FileName);
+            }
+        }
+
+        public void CambiarImagenCompaniaNuevo()
+        {
+            AbrirDialogo();
+            if (!string.IsNullOrEmpty(openFileDialog.FileName))
+            {
+                Nuevocompnia.Foto = azure.SubirFoto(openFileDialog.FileName);
+            }
+        }
+
+        public void ProductoNuevo()
+        {
+            NuevoProducto = new Producto();
+
+        }
+        public void EmpleadoNuevo()
+        {
+            NuevoEmpleado = new Empleado();
+        }
+        public void CompaniaNuevo()
+        {
+            Nuevocompnia = new CompaniaEnvio();
+        }
+        public void AñadirNuevoProducto()
+        {
+            bd.CrearProducto(NuevoProducto);
+            ListaProductos = bd.SacarProductos();
+        }
+        public void AñadirNuevoEmpleado()
+        {
+            bd.CrearEmpleado(NuevoEmpleado);
+            ListaEmpleados = bd.SacarEmpleados();
+        }
+        public void AñadirNuevaCompania()
+        {
+            bd.CrearCompaniaEnvio(Nuevocompnia);
+            ListaCompanias = bd.SacarCompaniasEnvio();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

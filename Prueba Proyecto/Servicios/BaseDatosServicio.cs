@@ -774,5 +774,126 @@ namespace Prueba_Proyecto.Servicios
                 Console.WriteLine("Ocurrió un error: " + ex.Message);
             }
         }
+
+        public void CrearProducto(Producto producto)
+        {
+            string apiUrl = "http://localhost:8080/LicoreriaAPiJPA/tienda/productos";
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                try
+                {
+                    var productoSinId = new
+                    {
+                        marca = producto.Marca,
+                        nombre = producto.Nombre,
+                        precio = producto.Precio,
+                        descripcion = producto.Descripcion,
+                        tipoAlcohol = producto.TipoAlcohol,
+                        graduacion = producto.Graduacion,
+                        foto = producto.Foto
+                    };
+                    string json = JsonConvert.SerializeObject(productoSinId);
+                    HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = httpClient.PostAsync(apiUrl, content).GetAwaiter().GetResult();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine("Producto creado exitosamente");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error al crear el producto");
+                        Console.WriteLine("Código de estado: " + response.StatusCode);
+                        Console.WriteLine("Mensaje de error: " + response.ReasonPhrase);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Ocurrió un error al crear el producto");
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+            }
+        }
+
+        public void CrearEmpleado(Empleado empleado)
+        {
+            string apiUrl = "http://localhost:8080/LicoreriaAPiJPA/tienda/empleados";
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                try
+                {
+                    var empleadoSinId = new
+                    {
+                        nombre = empleado.Nombre,
+                        apellidos = empleado.Apellidos,
+                        puesto = empleado.Puesto,
+                        sueldo = empleado.Sueldo,
+                        dni = empleado.Dni,
+                        fechaContratacion = empleado.FechaContratacion,
+                        foto = empleado.Foto
+                    };
+                    string json = JsonConvert.SerializeObject(empleadoSinId);
+                    HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = httpClient.PostAsync(apiUrl, content).GetAwaiter().GetResult();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine("Empleado creado exitosamente");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error al crear el empleado");
+                        Console.WriteLine("Código de estado: " + response.StatusCode);
+                        Console.WriteLine("Mensaje de error: " + response.ReasonPhrase);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Ocurrió un error al crear el empleado");
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+            }
+        }
+        public void CrearCompaniaEnvio(CompaniaEnvio companiaEnvio)
+        {
+            string apiUrl = "http://localhost:8080/LicoreriaAPiJPA/tienda/companiasenvios";
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                try
+                {
+                    var companiaEnvioSinId = new
+                    {
+                        nombre = companiaEnvio.Nombre,
+                        telefono = companiaEnvio.Telefono,
+                        foto = companiaEnvio.Foto
+                    };
+                    string json = JsonConvert.SerializeObject(companiaEnvioSinId);
+                    HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = httpClient.PostAsync(apiUrl, content).GetAwaiter().GetResult();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine("Compañía de envío creada exitosamente");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error al crear la compañía de envío");
+                        Console.WriteLine("Código de estado: " + response.StatusCode);
+                        Console.WriteLine("Mensaje de error: " + response.ReasonPhrase);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Ocurrió un error al crear la compañía de envío");
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+            }
+        }
     }
 }

@@ -183,5 +183,86 @@ namespace Prueba_Proyecto
         {
             vm.SubirCompania();
         }
+
+        private void ProductoFotoTextBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            vm.CambiarImagenProducto();
+        }
+
+        private void EmpleadoFotoTextBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            vm.CambiarImagenEmpleado();
+        }
+
+        private void CompaniaFotoTextBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            vm.CambiarImagenCompania();
+        }
+
+        private void NuevoProductoButton_Click(object sender, RoutedEventArgs e)
+        {
+            vm.ProductoNuevo();
+            NuevoProductoPopup.IsOpen = true;
+        }
+
+        private void ProductoFotoNuevoTextBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            vm.CambiarImagenProductoNuevo();
+        }
+
+        private void CancelarNButton_Click(object sender, RoutedEventArgs e)
+        {
+            NuevoProductoPopup.IsOpen = false;
+        }
+
+        private void CrearButton_Click(object sender, RoutedEventArgs e)
+        {
+            vm.AñadirNuevoProducto();
+            NuevoProductoPopup.IsOpen = false;
+        }
+
+        private void EmpleadoFotoNuevoTextBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            vm.CambiarImagenEmpleadoNuevo();
+        }
+
+        private void CancelarNButtonE_Click(object sender, RoutedEventArgs e)
+        {
+            NuevoEmpladoPopup.IsOpen = false;
+        }
+
+        private void NuevoEmpleadoButton_Click(object sender, RoutedEventArgs e)
+        {
+            vm.EmpleadoNuevo();
+            NuevoEmpladoPopup.IsOpen = true;
+        }
+
+        private void CrearButtonE_Click(object sender, RoutedEventArgs e)
+        {
+            vm.AñadirNuevoEmpleado();
+            NuevoEmpladoPopup.IsOpen = false;
+        }
+
+        private void CompaniaFotoNuevoTextBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            vm.CambiarImagenCompaniaNuevo();
+        }
+
+        private void CrearButtonC_Click(object sender, RoutedEventArgs e)
+        {
+            vm.AñadirNuevaCompania();
+            NuevaCompaniaPopup.IsOpen = false;
+        }
+
+        private void CancelarNButtonC_Click(object sender, RoutedEventArgs e)
+        {
+            NuevaCompaniaPopup.IsOpen = false;
+        }
+
+        private void NuevacompaniadoButton_Click(object sender, RoutedEventArgs e)
+        {
+            vm.CompaniaNuevo();
+            NuevaCompaniaPopup.IsOpen = true;
+        }
     }
 }

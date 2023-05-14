@@ -299,16 +299,38 @@
                             <TextBlock>Telefono</TextBlock>
                             <TextBox Text="{Binding CompaniaSelecionado.Telefono}"/>
                             <TextBlock>Foto</TextBlock>
-                            <TextBox Text="{Binding CompaniaSelecionado.Foto}" IsReadOnly="True"/>
+                            <TextBox x:Name="CompaniaFotoTextBox" Text="{Binding CompaniaSelecionado.Foto}" IsReadOnly="True" MouseDoubleClick="CompaniaFotoTextBox_MouseDoubleClick"/>
                             <Button x:Name="LimpiarSecButtonC" Margin="10" Background="DarkGray" Width="120" HorizontalAlignment="Left" Template="{DynamicResource ButtonControlTemplateBorde}" Click="LimpiarSecButtonC_Click">Limpiar selección</Button>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
                                 <Button x:Name="ListaButtonC" Content="Generar Lista PDF" Margin="10" Background="DarkGray" Width="100" Template="{DynamicResource ButtonControlTemplateBorde}" Click="ListaButtonC_Click"/>
                             </StackPanel>
                             <Button x:Name="SubirCompaniaButton" Content="Subir" Background="DarkGray" Margin="10" Width="100" Click="SubirCompaniaButton_Click" Template="{DynamicResource ButtonControlTemplateBorde}"/>
                             <Button x:Name="EliminarCompania" Content="Eliminar" Margin="10" Background="DarkGray" Width="100" Template="{DynamicResource ButtonControlTemplateBorde}" Click="EliminarCompania_Click" />
+                            <Button x:Name="NuevacompaniadoButton" Content="Nueva compañia" Margin="10" Background="DarkGray" Width="100" Template="{DynamicResource ButtonControlTemplateBorde}" Click="NuevacompaniadoButton_Click"/>
                         </StackPanel>
-
                     </Border>
+                    <Popup x:Name="NuevaCompaniaPopup" Width="500" Height="500" Placement="Center" IsOpen="False">
+                        <Border BorderBrush="#4a161c" BorderThickness="2">
+                            <Grid Background="White">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0">
+                                    <TextBlock>Nombre</TextBlock>
+                                    <TextBox Text="{Binding Nuevocompnia.Nombre}"/>
+                                    <TextBlock>Telefono</TextBlock>
+                                    <TextBox Text="{Binding Nuevocompnia.Telefono}"/>
+                                    <TextBlock>Foto</TextBlock>
+                                    <TextBox x:Name="CompaniaFotoNuevoTextBox" Text="{Binding Nuevocompnia.Foto}" IsReadOnly="True" MouseDoubleClick="CompaniaFotoNuevoTextBox_MouseDoubleClick"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
+                                    <Button x:Name="CrearButtonC" Content="Crear" Margin="0 0 10 0" Click="CrearButtonC_Click" Template="{DynamicResource ButtonControlTemplateBorde}"/>
+                                    <Button x:Name="CancelarNButtonC" Content="Cancelar" Click="CancelarNButtonC_Click" Template="{DynamicResource ButtonControlTemplateBorde}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Popup>
                 </Grid>
             </TabItem>
             <TabItem Header="Empleados" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
@@ -339,16 +361,46 @@
                             <TextBlock>Fecha de Contratacion</TextBlock>
                             <TextBox Text="{Binding EmpleadoSelecionado.FechaContratacion}"/>
                             <TextBlock>Foto</TextBlock>
-                            <TextBox Text="{Binding EmpleadoSelecionado.Foto}" IsReadOnly="True"/>
+                            <TextBox x:Name="EmpleadoFotoTextBox" Text="{Binding EmpleadoSelecionado.Foto}" IsReadOnly="True" MouseDoubleClick="EmpleadoFotoTextBox_MouseDoubleClick"/>
                             <Button x:Name="LimpiarSecButtonE" Margin="10" Background="DarkGray" Width="120" HorizontalAlignment="Left" Template="{DynamicResource ButtonControlTemplateBorde}" Click="LimpiarSecButtonE_Click">Limpiar selección</Button>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
                                 <Button x:Name="ListaButtonE" Content="Generar Lista PDF" Margin="10" Background="DarkGray" Width="100" Template="{DynamicResource ButtonControlTemplateBorde}" Click="ListaButtonE_Click"/>
                             </StackPanel>
                             <Button x:Name="SubirEmpleadoButton" Content="Subir" Margin="10" Background="DarkGray" Width="100" Click="SubirEmpleadoButton_Click" Template="{DynamicResource ButtonControlTemplateBorde}"/>
                             <Button x:Name="EliminarEmpleadoButton" Content="Eliminar" Margin="10" Background="DarkGray" Width="100" Template="{DynamicResource ButtonControlTemplateBorde}" Click="EliminarEmpleadoButton_Click" />
+                            <Button x:Name="NuevoEmpleadoButton" Content="Nuevo empleado" Margin="10" Background="DarkGray" Width="100" Template="{DynamicResource ButtonControlTemplateBorde}" Click="NuevoEmpleadoButton_Click"/>
                         </StackPanel>
-
                     </Border>
+                    <Popup x:Name="NuevoEmpladoPopup" Width="500" Height="500" Placement="Center" IsOpen="False">
+                        <Border BorderBrush="#4a161c" BorderThickness="2">
+                            <Grid Background="White">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0">
+                                    <TextBlock>Nombre</TextBlock>
+                                    <TextBox Text="{Binding NuevoEmpleado.Nombre}"/>
+                                    <TextBlock>Apellido</TextBlock>
+                                    <TextBox Text="{Binding NuevoEmpleado.Apellidos}"/>
+                                    <TextBlock>Puesto</TextBlock>
+                                    <TextBox Text="{Binding NuevoEmpleado.Puesto}"/>
+                                    <TextBlock>Sueldo</TextBlock>
+                                    <TextBox Text="{Binding NuevoEmpleado.Sueldo}"/>
+                                    <TextBlock>DNI</TextBlock>
+                                    <TextBox Text="{Binding NuevoEmpleado.Dni}"/>
+                                    <TextBlock>Fecha de Contratacion</TextBlock>
+                                    <TextBox Text="{Binding NuevoEmpleado.FechaContratacion}"/>
+                                    <TextBlock>Foto</TextBlock>
+                                    <TextBox x:Name="EmpleadoFotoNuevoTextBox" Text="{Binding NuevoEmpleado.Foto}" IsReadOnly="True" MouseDoubleClick="EmpleadoFotoNuevoTextBox_MouseDoubleClick"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
+                                    <Button x:Name="CrearButtonE" Content="Crear" Margin="0 0 10 0" Click="CrearButtonE_Click" Template="{DynamicResource ButtonControlTemplateBorde}"/>
+                                    <Button x:Name="CancelarNButtonE" Content="Cancelar" Click="CancelarNButtonE_Click" Template="{DynamicResource ButtonControlTemplateBorde}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Popup>
                 </Grid>
             </TabItem>
             <TabItem Header="Productos" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
@@ -374,12 +426,12 @@
                             <TextBox Text="{Binding ProductoSelecionado.Descripcion}"/>
                             <TextBlock>Precio</TextBlock>
                             <TextBox Text="{Binding ProductoSelecionado.Precio}"/>
-                            <TextBlock>Precio</TextBlock>
+                            <TextBlock>Tipo Alcohol</TextBlock>
                             <TextBox Text="{Binding ProductoSelecionado.TipoAlcohol}"/>
                             <TextBlock>Graduacion</TextBlock>
                             <TextBox Text="{Binding ProductoSelecionado.Graduacion}"/>
                             <TextBlock>Foto</TextBlock>
-                            <TextBox Text="{Binding ProductoSelecionado.Foto}" IsReadOnly="True"/>
+                            <TextBox x:Name="ProductoFotoTextBox" Text="{Binding ProductoSelecionado.Foto}" IsReadOnly="True" MouseDoubleClick="ProductoFotoTextBox_MouseDoubleClick"/>
                             <Button Click="LimpiarSecButton_Click" x:Name="LimpiarSecButton" Margin="10" Background="DarkGray" Width="120" HorizontalAlignment="Left" Template="{DynamicResource ButtonControlTemplateBorde}">Limpiar selección</Button>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
                                 <Button x:Name="PDFButton" Content="Generar PDF" Margin="10" Background="DarkGray" Width="100" Template="{DynamicResource ButtonControlTemplateBorde}" Click="PDFButton_Click"/>
@@ -387,9 +439,39 @@
                             </StackPanel>
                             <Button x:Name="SubirProductoButton" Content="Subir" Margin="10" Background="DarkGray" Width="100" Click="SubirProductoButton_Click" Template="{DynamicResource ButtonControlTemplateBorde}"/>
                             <Button x:Name="EliminarProductoButton" Content="Eliminar" Margin="10" Background="DarkGray" Width="100" Template="{DynamicResource ButtonControlTemplateBorde}" Click="EliminarProductoButton_Click"/>
+                            <Button x:Name="NuevoProductoButton" Content="Nuevo producto" Margin="10" Background="DarkGray" Width="100" Template="{DynamicResource ButtonControlTemplateBorde}" Click="NuevoProductoButton_Click"/>
                         </StackPanel>
-                        
                     </Border>
+                    <Popup x:Name="NuevoProductoPopup" Width="500" Height="500" Placement="Center" IsOpen="False">
+                        <Border BorderBrush="#4a161c" BorderThickness="2">
+                            <Grid Background="White">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0">
+                                    <TextBlock>Nombre</TextBlock>
+                                    <TextBox Text="{Binding NuevoProducto.Nombre}"/>
+                                    <TextBlock>Marca</TextBlock>
+                                    <TextBox Text="{Binding NuevoProducto.Marca}"/>
+                                    <TextBlock>Descripcion</TextBlock>
+                                    <TextBox Text="{Binding NuevoProducto.Descripcion}"/>
+                                    <TextBlock>Precio</TextBlock>
+                                    <TextBox Text="{Binding NuevoProducto.Precio}"/>
+                                    <TextBlock>Tipo Alcohol</TextBlock>
+                                    <TextBox Text="{Binding NuevoProducto.TipoAlcohol}"/>
+                                    <TextBlock>Graduacion</TextBlock>
+                                    <TextBox Text="{Binding NuevoProducto.Graduacion}"/>
+                                    <TextBlock>Foto</TextBlock>
+                                    <TextBox x:Name="ProductoFotoNuevoTextBox" Text="{Binding NuevoProducto.Foto}" IsReadOnly="True" MouseDoubleClick="ProductoFotoNuevoTextBox_MouseDoubleClick"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
+                                    <Button x:Name="CrearButton" Content="Crear" Margin="0 0 10 0" Click="CrearButton_Click" Template="{DynamicResource ButtonControlTemplateBorde}"/>
+                                    <Button x:Name="CancelarNButton" Content="Cancelar" Click="CancelarNButton_Click" Template="{DynamicResource ButtonControlTemplateBorde}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Popup>
                 </Grid>
             </TabItem>
         </TabControl>
