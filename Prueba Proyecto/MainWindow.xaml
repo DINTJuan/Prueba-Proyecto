@@ -359,7 +359,7 @@
                             <TextBlock>DNI</TextBlock>
                             <TextBox Text="{Binding EmpleadoSelecionado.Dni}"/>
                             <TextBlock>Fecha de Contratacion</TextBlock>
-                            <TextBox Text="{Binding EmpleadoSelecionado.FechaContratacion}"/>
+                            <TextBox Text="{Binding EmpleadoSelecionado.FechaContratacion, StringFormat=dd/MM/yyyy}"/>
                             <TextBlock>Foto</TextBlock>
                             <TextBox x:Name="EmpleadoFotoTextBox" Text="{Binding EmpleadoSelecionado.Foto}" IsReadOnly="True" MouseDoubleClick="EmpleadoFotoTextBox_MouseDoubleClick"/>
                             <Button x:Name="LimpiarSecButtonE" Margin="10" Background="DarkGray" Width="120" HorizontalAlignment="Left" Template="{DynamicResource ButtonControlTemplateBorde}" Click="LimpiarSecButtonE_Click">Limpiar selección</Button>
