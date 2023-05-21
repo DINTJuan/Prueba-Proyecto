@@ -441,6 +441,7 @@ namespace Prueba_Proyecto.Servicios
                         var clienteSinId = new
                         {
                             nombre = cliente.Nombre,
+                            direccion = cliente.Direccion,
                             apellidos = cliente.Apellidos,
                             ciudad = cliente.Ciudad,
                             codigoPostal = cliente.CodigoPostal

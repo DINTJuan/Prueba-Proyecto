@@ -208,9 +208,9 @@
                     <DataGrid ItemsSource="{Binding ListaPedidos}" SelectedItem="{Binding Path=PedidoSeleccionado}" AutoGenerateColumns="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding IdPedido}" />
-                            <DataGridTextColumn IsReadOnly="True" Header="Fecha Pedido" Binding="{Binding FechaPedido, StringFormat=dd/MM/yyyy}" />
-                            <DataGridTextColumn IsReadOnly="True" Header="Fecha Envío" Binding="{Binding FechaEnvio, StringFormat=dd/MM/yyyy}" />
-                            <DataGridTextColumn IsReadOnly="True" Header="Fecha Entrega" Binding="{Binding FechaEntrega, StringFormat=dd/MM/yyyy}" />
+                            <DataGridTextColumn Header="Fecha Pedido" Binding="{Binding FechaPedido, StringFormat=dd/MM/yyyy}" />
+                            <DataGridTextColumn Header="Fecha Envío" Binding="{Binding FechaEnvio, StringFormat=dd/MM/yyyy}" />
+                            <DataGridTextColumn Header="Fecha Entrega" Binding="{Binding FechaEntrega, StringFormat=dd/MM/yyyy}" />
                             <DataGridTextColumn Header="Forma Envio" Binding="{Binding FormaEnvio}"/>
                             <DataGridTextColumn Header="Destinatario" Binding="{Binding Destinatario}"/>
                             <DataGridTextColumn Header="Dirrecion Envio" Binding="{Binding DirrecionEnvio}"/>
@@ -266,7 +266,7 @@
                             <DataGridTextColumn Header="ID" Binding="{Binding IdCliente}" />
                             <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" />
                             <DataGridTextColumn Header="Apellidos" Binding="{Binding Apellidos}" />
-                            <DataGridTextColumn Header="Direccion" Binding="{Binding Direcion}" />
+                            <DataGridTextColumn Header="Direccion" Binding="{Binding Direccion}" />
                             <DataGridTextColumn Header="Codigo Postal" Binding="{Binding CodigoPostal}"/>
                             <DataGridTextColumn Header="Ciudad" Binding="{Binding Ciudad}"/>
                         </DataGrid.Columns>
@@ -359,7 +359,7 @@
                             <TextBlock>DNI</TextBlock>
                             <TextBox Text="{Binding EmpleadoSelecionado.Dni}"/>
                             <TextBlock>Fecha de Contratacion</TextBlock>
-                            <TextBox Text="{Binding EmpleadoSelecionado.FechaContratacion}"/>
+                            <TextBox Text="{Binding EmpleadoSelecionado.FechaContratacion, StringFormat=dd/MM/yyyy}"/>
                             <TextBlock>Foto</TextBlock>
                             <TextBox x:Name="EmpleadoFotoTextBox" Text="{Binding EmpleadoSelecionado.Foto}" IsReadOnly="True" MouseDoubleClick="EmpleadoFotoTextBox_MouseDoubleClick"/>
                             <Button x:Name="LimpiarSecButtonE" Margin="10" Background="DarkGray" Width="120" HorizontalAlignment="Left" Template="{DynamicResource ButtonControlTemplateBorde}" Click="LimpiarSecButtonE_Click">Limpiar selección</Button>
@@ -390,7 +390,7 @@
                                     <TextBlock>DNI</TextBlock>
                                     <TextBox Text="{Binding NuevoEmpleado.Dni}"/>
                                     <TextBlock>Fecha de Contratacion</TextBlock>
-                                    <TextBox Text="{Binding NuevoEmpleado.FechaContratacion}"/>
+                                    <TextBox Text="{Binding NuevoEmpleado.FechaContratacion, StringFormat=dd/MM/yyyy}"/>
                                     <TextBlock>Foto</TextBlock>
                                     <TextBox x:Name="EmpleadoFotoNuevoTextBox" Text="{Binding NuevoEmpleado.Foto}" IsReadOnly="True" MouseDoubleClick="EmpleadoFotoNuevoTextBox_MouseDoubleClick"/>
                                 </StackPanel>

@@ -13,6 +13,7 @@ namespace Prueba_Proyecto.Clases
         private string nombre;
         private string apellidos;
         private string ciudad;
+        private string direccion;
         private string codigoPostal;
 
         public int IdCliente
@@ -44,17 +45,23 @@ namespace Prueba_Proyecto.Clases
             get { return ciudad; }
             set { SetProperty(ref ciudad, value); }
         }
+        public string Direccion
+        {
+            get { return direccion; }
+            set { SetProperty(ref direccion, value); }
+        }
 
         public Cliente()
         {
         }
 
-        public Cliente(int idCliente, string nombre, string apellidos, string ciudad, string codigoPostal)
+        public Cliente(int idCliente, string nombre, string apellidos, string ciudad, string direccion, string codigoPostal)
         {
             this.idCliente = idCliente;
             this.nombre = nombre;
             this.apellidos = apellidos;
             this.ciudad = ciudad;
+            this.direccion = direccion;
             this.codigoPostal = codigoPostal;
         }
     }
