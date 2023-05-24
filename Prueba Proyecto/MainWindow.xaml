@@ -205,17 +205,77 @@
             </TabItem>
             <TabItem Header="Pedidos" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
                 <Grid>
-                    <DataGrid ItemsSource="{Binding ListaPedidos}" SelectedItem="{Binding Path=PedidoSeleccionado}" AutoGenerateColumns="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding IdPedido}" />
-                            <DataGridTextColumn Header="Fecha Pedido" Binding="{Binding FechaPedido, StringFormat=dd/MM/yyyy}" />
-                            <DataGridTextColumn Header="Fecha Envío" Binding="{Binding FechaEnvio, StringFormat=dd/MM/yyyy}" />
-                            <DataGridTextColumn Header="Fecha Entrega" Binding="{Binding FechaEntrega, StringFormat=dd/MM/yyyy}" />
-                            <DataGridTextColumn Header="Forma Envio" Binding="{Binding FormaEnvio}"/>
-                            <DataGridTextColumn Header="Destinatario" Binding="{Binding Destinatario}"/>
-                            <DataGridTextColumn Header="Dirrecion Envio" Binding="{Binding DirrecionEnvio}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <DataGrid ItemsSource="{Binding ListaPedidos}" SelectedItem="{Binding Path=PedidoSeleccionado}" AutoGenerateColumns="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="DataGrid_MouseDoubleClick">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding IdPedido}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Fecha Pedido" Binding="{Binding FechaPedido, StringFormat=dd/MM/yyyy}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Fecha Envío" Binding="{Binding FechaEnvio, StringFormat=dd/MM/yyyy}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Fecha Entrega" Binding="{Binding FechaEntrega, StringFormat=dd/MM/yyyy}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Forma Envio" Binding="{Binding FormaEnvio}"/>
+                                <DataGridTextColumn Header="Destinatario" Binding="{Binding Destinatario}"/>
+                                <DataGridTextColumn Header="Dirrecion Envio" Binding="{Binding DirrecionEnvio}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </ScrollViewer>
+                    <Popup x:Name="VentanaEmergenteFechaP" Width="200" Height="200" Placement="Center" IsOpen="False">
+                        <Border BorderBrush="#4a161c" BorderThickness="2">
+                            <Grid Background="White">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0">
+                                    <TextBlock Text="Introduce la Fecha del pedido"/>
+                                    <TextBox x:Name="FechaPTextBox" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
+                                    <Button x:Name="AceptarFPButton" Content="Cambiar" Margin="0 0 10 0" Click="AceptarFPButton_Click" Template="{DynamicResource ButtonControlTemplateBorde}"/>
+                                    <Button x:Name="CancelarFPButton" Content="Cancelar" Click="CancelarFPButton_Click" Template="{DynamicResource ButtonControlTemplateBorde}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Popup>
+                    <Popup x:Name="VentanaEmergenteFechaE" Width="200" Height="200" Placement="Center" IsOpen="False">
+                        <Border BorderBrush="#4a161c" BorderThickness="2">
+                            <Grid Background="White">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0">
+                                    <TextBlock Text="Introduce la Fecha del envio"/>
+                                    <TextBox x:Name="FechaETextBox" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
+                                    <Button x:Name="AceptarFEButton" Content="Cambiar" Margin="0 0 10 0" Click="AceptarFEButton_Click" Template="{DynamicResource ButtonControlTemplateBorde}"/>
+                                    <Button x:Name="CancelarFEButton" Content="Cancelar" Click="CancelarFEButton_Click" Template="{DynamicResource ButtonControlTemplateBorde}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Popup>
+                    <Popup x:Name="VentanaEmergenteFechaT" Width="200" Height="200" Placement="Center" IsOpen="False">
+                        <Border BorderBrush="#4a161c" BorderThickness="2">
+                            <Grid Background="White">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0">
+                                    <TextBlock Text="Introduce la Fecha de la entrega"/>
+                                    <TextBox x:Name="FechaTTextBox" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
+                                    <Button x:Name="AceptarFTButton" Content="Cambiar" Margin="0 0 10 0" Click="AceptarFTButton_Click" Template="{DynamicResource ButtonControlTemplateBorde}"/>
+                                    <Button x:Name="CancelarFTButton" Content="Cancelar" Click="CancelarFTButton_Click" Template="{DynamicResource ButtonControlTemplateBorde}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Popup>
                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
                         <Button x:Name="SubirPedidoButton" Content="Subir" Margin="10" Click="SubirPedidoButton_Click" Width="120" VerticalAlignment="Bottom" Template="{DynamicResource ButtonControlTemplateBorde}"/>
                         <Button Margin="10" Content="Detalles Pedido" Click="Detalles_Click" Width="120" VerticalAlignment="Bottom" Template="{DynamicResource ButtonControlTemplateBorde}"/>
@@ -244,16 +304,22 @@
                     <Popup x:Name="VentanaEmergenteBuscado" Width="450" Height="300" Placement="Center" IsOpen="False">
                         <Border BorderBrush="#4a161c" BorderThickness="2">
                             <Grid Background="White">
-                                <DataGrid ItemsSource="{Binding ListaDetallesPedidosBuscados}" AutoGenerateColumns="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn Header="ID Pedido" Binding="{Binding DetallespedidosPK.IdPedido}" />
-                                        <DataGridTextColumn Header="IdProducto" Binding="{Binding DetallespedidosPK.IdProducto}" />
-                                        <DataGridTextColumn Header="Precio Unidad" Binding="{Binding PrecioUnidad}" />
-                                        <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}" />
-                                        <DataGridTextColumn Header="Descuento" Binding="{Binding Descuento}"/>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                                <Button Margin="10" x:Name="CerrarButton" Content="Cerrar" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Template="{DynamicResource ButtonControlTemplateBorde}" Click="CerrarButton_Click"/>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                    <DataGrid ItemsSource="{Binding ListaDetallesPedidosBuscados}" AutoGenerateColumns="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="ID Pedido" Binding="{Binding DetallespedidosPK.IdPedido}" />
+                                            <DataGridTextColumn Header="IdProducto" Binding="{Binding DetallespedidosPK.IdProducto}" />
+                                            <DataGridTextColumn Header="Precio Unidad" Binding="{Binding PrecioUnidad}" />
+                                            <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}" />
+                                            <DataGridTextColumn Header="Descuento" Binding="{Binding Descuento}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </ScrollViewer>
+                                <Button Grid.Row="1" Margin="10" x:Name="CerrarButton" Content="Cerrar" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Template="{DynamicResource ButtonControlTemplateBorde}" Click="CerrarButton_Click"/>
                             </Grid>
                         </Border>
                     </Popup>
@@ -261,16 +327,22 @@
             </TabItem>
             <TabItem Header="Clientes" Visibility="Collapsed" Style="{StaticResource PestanaContenido}">
                 <Grid>
-                    <DataGrid ItemsSource="{Binding ListaClientes}" SelectedItem="{Binding Path=ClienteSeleccionado}" AutoGenerateColumns="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding IdCliente}" />
-                            <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" />
-                            <DataGridTextColumn Header="Apellidos" Binding="{Binding Apellidos}" />
-                            <DataGridTextColumn Header="Direccion" Binding="{Binding Direccion}" />
-                            <DataGridTextColumn Header="Codigo Postal" Binding="{Binding CodigoPostal}"/>
-                            <DataGridTextColumn Header="Ciudad" Binding="{Binding Ciudad}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <DataGrid ItemsSource="{Binding ListaClientes}" SelectedItem="{Binding Path=ClienteSeleccionado}" AutoGenerateColumns="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding IdCliente}" IsReadOnly="True" />
+                                <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" />
+                                <DataGridTextColumn Header="Apellidos" Binding="{Binding Apellidos}" />
+                                <DataGridTextColumn Header="Direccion" Binding="{Binding Direccion}" />
+                                <DataGridTextColumn Header="Codigo Postal" Binding="{Binding CodigoPostal}"/>
+                                <DataGridTextColumn Header="Ciudad" Binding="{Binding Ciudad}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </ScrollViewer>
                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
                         <Button x:Name="SubirClienteButton" Content="Subir" Margin="10" Click="SubirClienteButton_Click" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Template="{DynamicResource ButtonControlTemplateBorde}"/>
                         <Button x:Name="PDFClientesButton" Margin="10" Content="Generar PDF" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Template="{DynamicResource ButtonControlTemplateBorde}" Click="PDFClientesButton_Click"/>

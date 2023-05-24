@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.1.32319.34
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32901.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prueba Proyecto", "Prueba Proyecto\Prueba Proyecto.csproj", "{B649398C-A84C-4B5B-A133-0C671E6BD5BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicoreriaApp", "Prueba Proyecto\LicoreriaApp.csproj", "{B649398C-A84C-4B5B-A133-0C671E6BD5BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

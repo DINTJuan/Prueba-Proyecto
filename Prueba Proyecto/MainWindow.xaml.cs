@@ -5,6 +5,7 @@ using Prueba_Proyecto.VM;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -207,7 +208,9 @@ namespace Prueba_Proyecto
 
         private void ProductoFotoNuevoTextBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            NuevoProductoPopup.IsOpen = false;
             vm.CambiarImagenProductoNuevo();
+            NuevoProductoPopup.IsOpen = true;
         }
 
         private void CancelarNButton_Click(object sender, RoutedEventArgs e)
@@ -223,7 +226,9 @@ namespace Prueba_Proyecto
 
         private void EmpleadoFotoNuevoTextBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            NuevoEmpladoPopup.IsOpen = false;
             vm.CambiarImagenEmpleadoNuevo();
+            NuevoEmpladoPopup.IsOpen = true;
         }
 
         private void CancelarNButtonE_Click(object sender, RoutedEventArgs e)
@@ -245,7 +250,9 @@ namespace Prueba_Proyecto
 
         private void CompaniaFotoNuevoTextBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            NuevaCompaniaPopup.IsOpen = false;
             vm.CambiarImagenCompaniaNuevo();
+            NuevaCompaniaPopup.IsOpen = true;
         }
 
         private void CrearButtonC_Click(object sender, RoutedEventArgs e)
@@ -263,6 +270,77 @@ namespace Prueba_Proyecto
         {
             vm.CompaniaNuevo();
             NuevaCompaniaPopup.IsOpen = true;
+        }
+
+        private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is DataGrid dataGrid)
+            {
+                // Obtener la celda y columna seleccionada
+                DataGridCellInfo cellInfo = dataGrid.CurrentCell;
+
+                if (cellInfo != null)
+                {
+                    if (cellInfo.Column.Header.ToString() == "Fecha Pedido")
+                    {
+                        FechaPTextBox.Text = vm.PedidoSeleccionado.FechaPedido.ToString("dd/MM/yyyy");
+                        VentanaEmergenteFechaP.IsOpen = true;
+                    }
+                    else if (cellInfo.Column.Header.ToString() == "Fecha Envío")
+                    {
+                        FechaETextBox.Text = vm.PedidoSeleccionado.FechaEnvio.ToString("dd/MM/yyyy");
+                        VentanaEmergenteFechaE.IsOpen = true;
+                    }
+                    else if (cellInfo.Column.Header.ToString() == "Fecha Entrega")
+                    {
+                        FechaTTextBox.Text = vm.PedidoSeleccionado.FechaEntrega.ToString("dd/MM/yyyy");
+                        VentanaEmergenteFechaT.IsOpen = true;
+                    }
+                }
+            }
+        }
+
+        private void AceptarFPButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DateTime.TryParseExact(FechaPTextBox.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaPedido))
+            {
+                vm.PedidoSeleccionado.FechaPedido = fechaPedido;
+            }
+            VentanaEmergenteFechaP.IsOpen = false;
+
+        }
+
+        private void CancelarFPButton_Click(object sender, RoutedEventArgs e)
+        {
+            VentanaEmergenteFechaP.IsOpen = false;
+        }
+
+        private void AceptarFEButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DateTime.TryParseExact(FechaETextBox.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaPedido))
+            {
+                vm.PedidoSeleccionado.FechaEnvio = fechaPedido;
+            }
+            VentanaEmergenteFechaE.IsOpen = false;
+        }
+
+        private void CancelarFEButton_Click(object sender, RoutedEventArgs e)
+        {
+            VentanaEmergenteFechaE.IsOpen = false;
+        }
+
+        private void AceptarFTButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DateTime.TryParseExact(FechaTTextBox.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaPedido))
+            {
+                vm.PedidoSeleccionado.FechaEntrega = fechaPedido;
+            }
+            VentanaEmergenteFechaT.IsOpen = false;
+        }
+
+        private void CancelarFTButton_Click(object sender, RoutedEventArgs e)
+        {
+            VentanaEmergenteFechaT.IsOpen = false;
         }
     }
 }
